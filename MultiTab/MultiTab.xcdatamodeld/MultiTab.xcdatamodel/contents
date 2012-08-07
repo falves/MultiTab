@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1487" systemVersion="11E53" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Cliente" representedClassName="Cliente" syncable="YES">
+        <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parcial" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="itensCompartilhados" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="clientesCompartilhados" inverseEntity="Item" syncable="YES"/>
+        <relationship name="itensIndividuais" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="clienteIndividual" inverseEntity="Item" syncable="YES"/>
+        <relationship name="mesa" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Mesa" inverseName="clientes" inverseEntity="Mesa" syncable="YES"/>
+    </entity>
+    <entity name="Item" representedClassName="Item" syncable="YES">
+        <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="preco" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="clienteIndividual" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Cliente" inverseName="itensIndividuais" inverseEntity="Cliente" syncable="YES"/>
+        <relationship name="clientesCompartilhados" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Cliente" inverseName="itensCompartilhados" inverseEntity="Cliente" syncable="YES"/>
+        <relationship name="mesa" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Mesa" inverseName="itensTotais" inverseEntity="Mesa" syncable="YES"/>
+    </entity>
+    <entity name="Mesa" representedClassName="Mesa" syncable="YES">
+        <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="clientes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Cliente" inverseName="mesa" inverseEntity="Cliente" syncable="YES"/>
+        <relationship name="itensTotais" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="mesa" inverseEntity="Item" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Mesa" positionX="-6381" positionY="-3411" width="128" height="90"/>
+        <element name="Cliente" positionX="-6129" positionY="-3096" width="128" height="120"/>
+        <element name="Item" positionX="-6741" positionY="-3162" width="128" height="120"/>
+    </elements>
+</model>
