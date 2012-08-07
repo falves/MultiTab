@@ -423,6 +423,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MultiTab/MultiTab-Prefix.pch";
 				INFOPLIST_FILE = "MultiTab/MultiTab-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -434,6 +435,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MultiTab/MultiTab-Prefix.pch";
 				INFOPLIST_FILE = "MultiTab/MultiTab-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -483,7 +485,7 @@
 				56AACA8515D125CE00AA255C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		56AACA8615D125CE00AA255C /* Build configuration list for PBXNativeTarget "MultiTab" */ = {
 			isa = XCConfigurationList;
@@ -492,7 +494,7 @@
 				56AACA8815D125CE00AA255C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		56AACA8915D125CE00AA255C /* Build configuration list for PBXNativeTarget "MultiTabTests" */ = {
 			isa = XCConfigurationList;
@@ -501,7 +503,7 @@
 				56AACA8B15D125CE00AA255C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 

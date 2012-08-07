@@ -9,21 +9,23 @@
 #import "MesaViewController.h"
 #import "AppDelegate.h"
 #import "Cliente.h"
-//#import "Mesa.h"
 #import "Item.h"
 
 @interface MesaViewController ()
 {
     IBOutlet UITableView * tableClientes;
+    IBOutlet UITableView * tableItens;
+    IBOutlet UITextField * nameField;
 }
 
 @property (nonatomic, strong) NSMutableArray * listaDeClientes;
-//@property (nonatomic, strong) Mesa * mesa;
+@property (nonatomic, strong) NSMutableArray * listaDeItens;
 @property (nonatomic, strong) NSManagedObjectContext * context;
 
 
 - (IBAction)pressionouAdicionarPessoa:(UIButton*)sender;
 - (void) atualizaDataSource;
+- (void) exibeAddressBook;
 
 @end
 
@@ -32,12 +34,8 @@
 @synthesize listaDeClientes = _listaDeClientes;
 @synthesize mesa = _mesa;
 @synthesize nomeDaMesa = _nomeDaMesa;
+@synthesize listaDeItens = _listaDeItens;
 @synthesize novaMesa;
-
-
-#warning MANTER UMA REFERENCIA PARA O CONTEXT 
-#warning CRIAR UMA MESA NOVA NO VIEWDIDLOAD E MANTER UMA REFERENCIA PRA ELA
-#warning SE ESTIVER CARREGANDO UMA MESA, CARREGA-LA NO VIEWDIDLOAD E MANTER UMA REFERENCIA PARA ELA
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -78,17 +76,9 @@
 #pragma mark - Botões
 
 - (void)pressionouAdicionarPessoa:(UIButton *)sender {
-    ABPeoplePickerNavigationController *picker = [ABPeoplePickerNavigationController new];
-    picker.peoplePickerDelegate = self;
-	// Display only a person's phone, email, and birthdate
-	NSArray *displayedItems = [NSArray arrayWithObjects:[NSNumber numberWithInt:kABPersonPhoneProperty],
-                               [NSNumber numberWithInt:kABPersonEmailProperty],
-                               [NSNumber numberWithInt:kABPersonBirthdayProperty], nil];
-	
-	
-	picker.displayedProperties = displayedItems;
-	// Show the picker
-	[self presentModalViewController:picker animated:YES];
+    
+    UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:@"Adicionar pessoa à mesa" delegate:self cancelButtonTitle:@"Cancelar" destructiveButtonTitle:nil otherButtonTitles:@"Nova Pessoa",@"Adicionar da Agenda", nil];
+    [sheet showInView:self.view];
 }
 
 #pragma mark - Controle de Mesa
@@ -122,6 +112,20 @@
 }
 
 #pragma mark - Métodos auxiliares
+
+- (void) exibeAddressBook {
+    ABPeoplePickerNavigationController *picker = [ABPeoplePickerNavigationController new];
+    picker.peoplePickerDelegate = self;
+	// Display only a person's phone, email, and birthdate
+	NSArray *displayedItems = [NSArray arrayWithObjects:[NSNumber numberWithInt:kABPersonPhoneProperty],
+                               [NSNumber numberWithInt:kABPersonEmailProperty],
+                               [NSNumber numberWithInt:kABPersonBirthdayProperty], nil];
+	
+	
+	picker.displayedProperties = displayedItems;
+	// Show the picker
+	[self presentModalViewController:picker animated:YES];
+}
 
 - (void) adicionarCliente:(NSString*)nome {
     
@@ -158,94 +162,85 @@
 
 }
 
-//
-//- (Mesa*) carregaMesaAtual {
-//    AppDelegate *appDelegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
-//    
-//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-//    NSEntityDescription *clienteDesc = [NSEntityDescription entityForName:@"Mesa" inManagedObjectContext:context];
-//    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//    [request setEntity:clienteDesc];
-//    
-//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(nome = %@)",self.nomeDaMesa];
-//    [request setPredicate:pred];
-//    NSManagedObject *matches = nil;
-//    NSError *error;
-//    NSArray *objects = [context executeFetchRequest:request
-//                                              error:&error];
-//    if ([objects count] == 0) {
-//        NSLog(@"Não encontrou a mesa.");
-//        return nil;
-//    } else {
-//        matches = [objects objectAtIndex:0];
-//        Mesa * mesa = (Mesa*) matches;
-//        NSLog(@"Carregou a mesa - %@",mesa.nome);
-//        return mesa;
-//    }
-//}
-//
-//- (void) carregaClientesDoCoreData {
-//    
-//    AppDelegate *appDelegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
-//
-//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-//    NSEntityDescription *clienteDesc = [NSEntityDescription entityForName:@"Cliente" inManagedObjectContext:context];
-//    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//    [request setEntity:clienteDesc];
-//    
-//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(mesa = %@)",[self carregaMesaAtual]];
-//    [request setPredicate:pred];
-//    NSManagedObject *matches = nil;
-//    NSError *error;
-//    NSArray *objects = [context executeFetchRequest:request
-//                                              error:&error];
-//    if ([objects count] == 0) {
-//        NSLog(@"Carregou mesa vazia.");
-//    } else {
-//        matches = [objects objectAtIndex:0];
-//        Cliente * cliente = (Cliente*) matches;
-//        NSLog(@"Carregou o cliente - %@",cliente.nome);
-//    }
-//}
-
-
-
 #pragma mark - UITableViewDatasource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier;
+    UITableViewCell *cell;
     
-    if ([self.listaDeClientes count] == 0) {
-        CellIdentifier = @"clientesVaziaCell";
+    if ([tableView isEqual:tableClientes]) {
+        if ([self.listaDeClientes count] == 0) {
+            CellIdentifier = @"clientesVaziaCell";
+        } else {
+            CellIdentifier = @"clientesCell";
+        }
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if ([self.listaDeClientes count] != 0) {
+            Cliente * cliente = (Cliente*)[self.listaDeClientes objectAtIndex:indexPath.row];
+            cell.textLabel.text = cliente.nome;
+        }
     } else {
-        CellIdentifier = @"clientesCell";
+        if ([self.listaDeItens count] == 0) {
+            CellIdentifier = @"cellItensVazia";
+        } else {
+            CellIdentifier = @"cellItensCheia";
+        }
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if ([self.listaDeItens count] != 0) {
+            Item * item = (Item*)[self.listaDeItens objectAtIndex:indexPath.row];
+            cell.textLabel.text = item.nome;
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"R$ %f",[item.preco floatValue]];
+        }
     }
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if ([self.listaDeClientes count] != 0) {
-        Cliente * cliente = (Cliente*)[self.listaDeClientes objectAtIndex:indexPath.row];
-        cell.textLabel.text = cliente.nome;
-    }
-    
+
     return cell;
     
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if ([self.listaDeClientes count] == 0) {
-        return 1;
+    if ([tableView isEqual:tableClientes]) {
+        if ([self.listaDeClientes count] == 0) {
+            return 1;
+        } else {
+            return [self.listaDeClientes count];
+        }
     } else {
-        return [self.listaDeClientes count];
+        if ([self.listaDeItens count] == 0) {
+            return 1;
+        } else {
+            return [self.listaDeItens count];
+        }
     }
+    
 }
 
 #pragma mark - UITableViewDelegate
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    if ([tableView isEqual:tableClientes]) {
+        return @"Pessoas";
+    } else {
+        return @"Items compartilhados";
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
 }
 
 #pragma mark ABPeoplePickerNavigationControllerDelegate methods
@@ -258,36 +253,39 @@
     NSString * nomeCompleto = [NSString stringWithFormat:@"%@ %@",primeiroNome,ultimoNome];
     
     
-    UIView *view = peoplePicker.topViewController.view;
-    UITableView *tableView = nil;
-    for(UIView *uv in view.subviews)
-    {
-        if([uv isKindOfClass:[UITableView class]])
-        {
-            tableView = (UITableView*)uv;
-            break;
-        }
-    }
+//    UIView *view = peoplePicker.topViewController.view;
+//    UITableView *tableView = nil;
+//    for(UIView *uv in view.subviews)
+//    {
+//        if([uv isKindOfClass:[UITableView class]])
+//        {
+//            tableView = (UITableView*)uv;
+//            break;
+//        }
+//    }
+//    
+//    if(tableView != nil)
+//    {
+//        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[tableView indexPathForSelectedRow]];
+//        
+//        if (cell.accessoryType == UITableViewCellAccessoryNone) {
+//            
+//            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//            NSLog(@"Adicionar - %@",nomeCompleto);
+//            [self adicionarCliente:nomeCompleto];
+//            
+//        } else {
+//            
+//            cell.accessoryType = UITableViewCellAccessoryNone;
+//            NSLog(@"Remover - %@",nomeCompleto);
+//            
+//        }
+//                
+//        [cell setSelected:NO animated:YES];
+//    }
     
-    if(tableView != nil)
-    {
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[tableView indexPathForSelectedRow]];
-        
-        if (cell.accessoryType == UITableViewCellAccessoryNone) {
-            
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            NSLog(@"Adicionar - %@",nomeCompleto);
-            [self adicionarCliente:nomeCompleto];
-            
-        } else {
-            
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            NSLog(@"Remover - %@",nomeCompleto);
-            
-        }
-                
-        [cell setSelected:NO animated:YES];
-    }
+    [self adicionarCliente:nomeCompleto];
+    [self dismissModalViewControllerAnimated:YES];
 	return NO;
 }
 
@@ -304,6 +302,42 @@
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker;
 {
 	[self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark - UIActionSheet Delegate
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    UIAlertView* dialog;
+    
+    switch (buttonIndex) {
+        case 0: //nova
+            
+            dialog = [[UIAlertView alloc] init];
+            [dialog setDelegate:self];
+            [dialog setTitle:@"Digite o nome"];
+            [dialog setMessage:@" "];
+            [dialog addButtonWithTitle:@"Cancel"];
+            [dialog addButtonWithTitle:@"OK"];
+            
+            nameField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 45.0, 245.0, 25.0)];
+            [nameField setBackgroundColor:[UIColor whiteColor]];
+            [dialog addSubview:nameField];
+            [dialog show];
+            
+            break;
+            
+        case 1: //agenda
+            [self exibeAddressBook];
+            break;
+    }
+    
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != 0) {
+        [self adicionarCliente:nameField.text];
+    }
 }
 
 
