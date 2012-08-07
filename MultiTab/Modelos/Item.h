@@ -2,7 +2,7 @@
 //  Item.h
 //  MultiTab
 //
-//  Created by Mariana Meirelles on 8/7/12.
+//  Created by Felipe Alves on 07/08/12.
 //  Copyright (c) 2012 Bolzani. All rights reserved.
 //
 
@@ -13,10 +13,10 @@
 
 @interface Item : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * preco;
 @property (nonatomic, retain) NSString * nome;
+@property (nonatomic, retain) NSNumber * preco;
 @property (nonatomic, retain) Cliente *clienteIndividual;
 @property (nonatomic, retain) Cliente *clientesCompartilhados;
-@property (nonatomic, retain) Mesa *mesa;
+@property (nonatomic, retain) Mesa *pertenceMesa;
 
 @end

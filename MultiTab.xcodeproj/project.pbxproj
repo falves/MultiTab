@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55B940C815D1A1A200C11338 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940C715D1A1A200C11338 /* Item.m */; };
+		55B940CB15D1A1A200C11338 /* Cliente.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940CA15D1A1A200C11338 /* Cliente.m */; };
+		55B940CE15D1A1A200C11338 /* Mesa.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940CD15D1A1A200C11338 /* Mesa.m */; };
 		56AACA5815D125CE00AA255C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AACA5715D125CE00AA255C /* UIKit.framework */; };
 		56AACA5A15D125CE00AA255C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AACA5915D125CE00AA255C /* Foundation.framework */; };
 		56AACA5C15D125CE00AA255C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AACA5B15D125CE00AA255C /* CoreGraphics.framework */; };
@@ -26,9 +29,6 @@
 		56AACA9515D1301600AA255C /* MesaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AACA9415D1301600AA255C /* MesaViewController.m */; };
 		56AACA9C15D1342000AA255C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AACA9B15D1342000AA255C /* AddressBook.framework */; };
 		56AACA9E15D1342B00AA255C /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AACA9D15D1342B00AA255C /* AddressBookUI.framework */; };
-		56AACAB415D13EFC00AA255C /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AACAB315D13EFC00AA255C /* Item.m */; };
-		56AACAB715D13EFC00AA255C /* Cliente.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AACAB615D13EFC00AA255C /* Cliente.m */; };
-		56AACABA15D13EFC00AA255C /* Mesa.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AACAB915D13EFC00AA255C /* Mesa.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		55B940C615D1A1A200C11338 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Item.h; path = Modelos/Item.h; sourceTree = "<group>"; };
+		55B940C715D1A1A200C11338 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = Modelos/Item.m; sourceTree = "<group>"; };
+		55B940C915D1A1A200C11338 /* Cliente.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cliente.h; path = Modelos/Cliente.h; sourceTree = "<group>"; };
+		55B940CA15D1A1A200C11338 /* Cliente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cliente.m; path = Modelos/Cliente.m; sourceTree = "<group>"; };
+		55B940CC15D1A1A200C11338 /* Mesa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mesa.h; path = Modelos/Mesa.h; sourceTree = "<group>"; };
+		55B940CD15D1A1A200C11338 /* Mesa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Mesa.m; path = Modelos/Mesa.m; sourceTree = "<group>"; };
 		56AACA5315D125CE00AA255C /* MultiTab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiTab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56AACA5715D125CE00AA255C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		56AACA5915D125CE00AA255C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -67,12 +73,6 @@
 		56AACA9415D1301600AA255C /* MesaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MesaViewController.m; path = Mesa/MesaViewController.m; sourceTree = "<group>"; };
 		56AACA9B15D1342000AA255C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		56AACA9D15D1342B00AA255C /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
-		56AACAB215D13EFC00AA255C /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Item.h; path = Modelos/Item.h; sourceTree = "<group>"; };
-		56AACAB315D13EFC00AA255C /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = Modelos/Item.m; sourceTree = "<group>"; };
-		56AACAB515D13EFC00AA255C /* Cliente.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cliente.h; path = Modelos/Cliente.h; sourceTree = "<group>"; };
-		56AACAB615D13EFC00AA255C /* Cliente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cliente.m; path = Modelos/Cliente.m; sourceTree = "<group>"; };
-		56AACAB815D13EFC00AA255C /* Mesa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mesa.h; path = Modelos/Mesa.h; sourceTree = "<group>"; };
-		56AACAB915D13EFC00AA255C /* Mesa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Mesa.m; path = Modelos/Mesa.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,12 +202,12 @@
 		56AACA9F15D138FD00AA255C /* Modelos */ = {
 			isa = PBXGroup;
 			children = (
-				56AACAB815D13EFC00AA255C /* Mesa.h */,
-				56AACAB915D13EFC00AA255C /* Mesa.m */,
-				56AACAB515D13EFC00AA255C /* Cliente.h */,
-				56AACAB615D13EFC00AA255C /* Cliente.m */,
-				56AACAB215D13EFC00AA255C /* Item.h */,
-				56AACAB315D13EFC00AA255C /* Item.m */,
+				55B940CC15D1A1A200C11338 /* Mesa.h */,
+				55B940CD15D1A1A200C11338 /* Mesa.m */,
+				55B940C915D1A1A200C11338 /* Cliente.h */,
+				55B940CA15D1A1A200C11338 /* Cliente.m */,
+				55B940C615D1A1A200C11338 /* Item.h */,
+				55B940C715D1A1A200C11338 /* Item.m */,
 			);
 			name = Modelos;
 			sourceTree = "<group>";
@@ -324,9 +324,9 @@
 				56AACA6D15D125CE00AA255C /* MultiTab.xcdatamodeld in Sources */,
 				56AACA9015D126C700AA255C /* HomeViewController.m in Sources */,
 				56AACA9515D1301600AA255C /* MesaViewController.m in Sources */,
-				56AACAB415D13EFC00AA255C /* Item.m in Sources */,
-				56AACAB715D13EFC00AA255C /* Cliente.m in Sources */,
-				56AACABA15D13EFC00AA255C /* Mesa.m in Sources */,
+				55B940C815D1A1A200C11338 /* Item.m in Sources */,
+				55B940CB15D1A1A200C11338 /* Cliente.m in Sources */,
+				55B940CE15D1A1A200C11338 /* Mesa.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +492,7 @@
 				56AACA8815D125CE00AA255C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		56AACA8915D125CE00AA255C /* Build configuration list for PBXNativeTarget "MultiTabTests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +501,7 @@
 				56AACA8B15D125CE00AA255C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

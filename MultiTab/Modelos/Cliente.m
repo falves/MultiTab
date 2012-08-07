@@ -2,7 +2,7 @@
 //  Cliente.m
 //  MultiTab
 //
-//  Created by Mariana Meirelles on 8/7/12.
+//  Created by Felipe Alves on 07/08/12.
 //  Copyright (c) 2012 Bolzani. All rights reserved.
 //
 
@@ -15,8 +15,8 @@
 
 @dynamic nome;
 @dynamic parcial;
-@dynamic itensIndividuais;
 @dynamic itensCompartilhados;
-@dynamic mesa;
+@dynamic itensIndividuais;
+@dynamic pertenceMesa;
 
 @end

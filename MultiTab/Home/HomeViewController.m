@@ -7,16 +7,26 @@
 //
 
 #import "HomeViewController.h"
+#import "MesaViewController.h"
+#import "AppDelegate.h"
+#import "Mesa.h"
 
 @interface HomeViewController ()
+{
+    IBOutlet UITableView *tableMesas;
+}
 
 @property (nonatomic, strong) NSMutableArray * listaDeMesas;
+@property (nonatomic, strong) NSManagedObjectContext * context;
+
+- (void) atualizaDataSource;
 
 @end
 
 @implementation HomeViewController
 
 @synthesize listaDeMesas = _listaDeMesas;
+@synthesize context = _context;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,10 +37,18 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [self atualizaDataSource];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+    
+    AppDelegate * delegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+    self.context = [delegate managedObjectContext];
+    
+
 }
 
 - (void)viewDidUnload
@@ -42,6 +60,26 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Métodos auxiliares
+
+- (void) atualizaDataSource {
+    
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Mesa" inManagedObjectContext:self.context];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+
+    
+    NSError *error = nil;
+    NSArray *array = [self.context executeFetchRequest:request error:&error];
+    
+    if (array != nil) {
+        self.listaDeMesas = [array copy];
+    }
+    
+    [tableMesas reloadData];
+    
 }
 
 #pragma mark - UITableViewDatasource
@@ -57,6 +95,16 @@
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if ([self.listaDeMesas count] != 0) {
+        
+        Mesa * mesa = [self.listaDeMesas objectAtIndex:indexPath.row];
+        cell.textLabel.text = mesa.nome;
+        
+        NSSet * setClientes = [mesa clientesDaMesa];
+        
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d pessoas",[setClientes count]];
+    }
     
     return cell;
 
@@ -75,6 +123,18 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self performSegueWithIdentifier:@"segueMesaExistente" sender:[self.listaDeMesas objectAtIndex:indexPath.row]];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    MesaViewController * mesaVC = [segue destinationViewController];
+
+    if ([[segue identifier] isEqualToString:@"segueMesaNova"]) {
+        [mesaVC setNovaMesa:YES];
+    } else {
+        [mesaVC setMesa:sender];
+    }
 }
 
 @end

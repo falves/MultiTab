@@ -2,7 +2,7 @@
 //  Mesa.m
 //  MultiTab
 //
-//  Created by Mariana Meirelles on 8/7/12.
+//  Created by Felipe Alves on 07/08/12.
 //  Copyright (c) 2012 Bolzani. All rights reserved.
 //
 
@@ -14,7 +14,7 @@
 @implementation Mesa
 
 @dynamic nome;
+@dynamic clientesDaMesa;
 @dynamic itensTotais;
-@dynamic clientes;
 
 @end

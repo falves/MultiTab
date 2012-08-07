@@ -2,7 +2,7 @@
 //  Item.m
 //  MultiTab
 //
-//  Created by Mariana Meirelles on 8/7/12.
+//  Created by Felipe Alves on 07/08/12.
 //  Copyright (c) 2012 Bolzani. All rights reserved.
 //
 
@@ -13,10 +13,10 @@
 
 @implementation Item
 
-@dynamic preco;
 @dynamic nome;
+@dynamic preco;
 @dynamic clienteIndividual;
 @dynamic clientesCompartilhados;
-@dynamic mesa;
+@dynamic pertenceMesa;
 
 @end

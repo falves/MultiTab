@@ -9,7 +9,7 @@
 #import "MesaViewController.h"
 #import "AppDelegate.h"
 #import "Cliente.h"
-#import "Mesa.h"
+//#import "Mesa.h"
 #import "Item.h"
 
 @interface MesaViewController ()
@@ -18,16 +18,21 @@
 }
 
 @property (nonatomic, strong) NSMutableArray * listaDeClientes;
-@property (nonatomic, strong) NSString * nomeDaMesa;
+//@property (nonatomic, strong) Mesa * mesa;
+@property (nonatomic, strong) NSManagedObjectContext * context;
+
 
 - (IBAction)pressionouAdicionarPessoa:(UIButton*)sender;
+- (void) atualizaDataSource;
 
 @end
 
 @implementation MesaViewController
 
 @synthesize listaDeClientes = _listaDeClientes;
+@synthesize mesa = _mesa;
 @synthesize nomeDaMesa = _nomeDaMesa;
+@synthesize novaMesa;
 
 
 #warning MANTER UMA REFERENCIA PARA O CONTEXT 
@@ -47,7 +52,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    AppDelegate * delegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+    self.context = delegate.managedObjectContext;
+    
+    if (self.novaMesa) {
+        [self criarNovaMesa];
+    }
+    
+    [self atualizaDataSource];
+    [tableClientes reloadData];
 }
 
 - (void)viewDidUnload
@@ -77,78 +91,122 @@
 	[self presentModalViewController:picker animated:YES];
 }
 
+#pragma mark - Controle de Mesa
+
+- (void) criarNovaMesa {
+    
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Mesa" inManagedObjectContext:self.context];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+    
+    NSError *error = nil;
+    NSArray *array = [self.context executeFetchRequest:request error:&error];
+    NSString * nomeDaNovaMesa;
+    
+    if (array == nil)
+    {
+        nomeDaNovaMesa = @"Mesa 0";
+    } else {
+        nomeDaNovaMesa = [NSString stringWithFormat:@"Mesa %d",[array count]];
+    }
+    
+    NSManagedObject * novaMesaEntity = [NSEntityDescription insertNewObjectForEntityForName:@"Mesa" inManagedObjectContext:self.context];
+    self.mesa = (Mesa*) novaMesaEntity;
+    [self.mesa setNome:nomeDaNovaMesa];
+    [self.context save:&error];
+    
+}
+
+- (void) carregarMesaExistente {
+    
+}
+
 #pragma mark - Métodos auxiliares
 
 - (void) adicionarCliente:(NSString*)nome {
     
-    AppDelegate *appDelegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+    NSError *error = nil;
     
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    Cliente *novoCliente = [[Cliente alloc] initWithEntity:[NSEntityDescription
-                                                            insertNewObjectForEntityForName:@"Cliente"
-                                                            inManagedObjectContext:context]
-                            insertIntoManagedObjectContext:context];
-//    novoCliente = [NSEntityDescription
-//                  insertNewObjectForEntityForName:@"Cliente"
-//                  inManagedObjectContext:context];
-    
-    novoCliente.nome = nome;
-    
-    
-    NSError *error;
-    [context save:&error];
+    NSManagedObject * novaMesaEntity = [NSEntityDescription insertNewObjectForEntityForName:@"Cliente" inManagedObjectContext:self.context];
+    Cliente * cliente = (Cliente*) novaMesaEntity;
+    [cliente setNome:nome];
+    [cliente setPertenceMesa:self.mesa];
+    [self.mesa addClientesDaMesaObject:cliente];
+    [self.context save:&error];
+
+    [self atualizaDataSource];
     
     [tableClientes reloadData];
 }
 
-- (Mesa*) carregaMesaAtual {
-    AppDelegate *appDelegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+- (void) atualizaDataSource {
     
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    NSEntityDescription *clienteDesc = [NSEntityDescription entityForName:@"Mesa" inManagedObjectContext:context];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Cliente" inManagedObjectContext:self.context];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:clienteDesc];
+    [request setEntity:entityDescription];
     
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(nome = %@)",self.nomeDaMesa];
-    [request setPredicate:pred];
-    NSManagedObject *matches = nil;
-    NSError *error;
-    NSArray *objects = [context executeFetchRequest:request
-                                              error:&error];
-    if ([objects count] == 0) {
-        NSLog(@"Não encontrou a mesa.");
-        return nil;
-    } else {
-        matches = [objects objectAtIndex:0];
-        Mesa * mesa = (Mesa*) matches;
-        NSLog(@"Carregou a mesa - %@",mesa.nome);
-        return mesa;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                              @"pertenceMesa == %@", self.mesa];
+    [request setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *array = [self.context executeFetchRequest:request error:&error];
+    
+    if (array != nil) {
+        self.listaDeClientes = [array copy];
     }
+
 }
 
-- (void) carregaClientesDoCoreData {
-    
-    AppDelegate *appDelegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
-
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    NSEntityDescription *clienteDesc = [NSEntityDescription entityForName:@"Cliente" inManagedObjectContext:context];
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:clienteDesc];
-    
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(mesa = %@)",[self carregaMesaAtual]];
-    [request setPredicate:pred];
-    NSManagedObject *matches = nil;
-    NSError *error;
-    NSArray *objects = [context executeFetchRequest:request
-                                              error:&error];
-    if ([objects count] == 0) {
-        NSLog(@"Carregou mesa vazia.");
-    } else {
-        matches = [objects objectAtIndex:0];
-        Cliente * cliente = (Cliente*) matches;
-        NSLog(@"Carregou o cliente - %@",cliente.nome);
-    }
-}
+//
+//- (Mesa*) carregaMesaAtual {
+//    AppDelegate *appDelegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+//    
+//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+//    NSEntityDescription *clienteDesc = [NSEntityDescription entityForName:@"Mesa" inManagedObjectContext:context];
+//    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+//    [request setEntity:clienteDesc];
+//    
+//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(nome = %@)",self.nomeDaMesa];
+//    [request setPredicate:pred];
+//    NSManagedObject *matches = nil;
+//    NSError *error;
+//    NSArray *objects = [context executeFetchRequest:request
+//                                              error:&error];
+//    if ([objects count] == 0) {
+//        NSLog(@"Não encontrou a mesa.");
+//        return nil;
+//    } else {
+//        matches = [objects objectAtIndex:0];
+//        Mesa * mesa = (Mesa*) matches;
+//        NSLog(@"Carregou a mesa - %@",mesa.nome);
+//        return mesa;
+//    }
+//}
+//
+//- (void) carregaClientesDoCoreData {
+//    
+//    AppDelegate *appDelegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+//
+//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+//    NSEntityDescription *clienteDesc = [NSEntityDescription entityForName:@"Cliente" inManagedObjectContext:context];
+//    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+//    [request setEntity:clienteDesc];
+//    
+//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(mesa = %@)",[self carregaMesaAtual]];
+//    [request setPredicate:pred];
+//    NSManagedObject *matches = nil;
+//    NSError *error;
+//    NSArray *objects = [context executeFetchRequest:request
+//                                              error:&error];
+//    if ([objects count] == 0) {
+//        NSLog(@"Carregou mesa vazia.");
+//    } else {
+//        matches = [objects objectAtIndex:0];
+//        Cliente * cliente = (Cliente*) matches;
+//        NSLog(@"Carregou o cliente - %@",cliente.nome);
+//    }
+//}
 
 
 
@@ -165,6 +223,11 @@
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if ([self.listaDeClientes count] != 0) {
+        Cliente * cliente = (Cliente*)[self.listaDeClientes objectAtIndex:indexPath.row];
+        cell.textLabel.text = cliente.nome;
+    }
     
     return cell;
     
@@ -214,6 +277,7 @@
             
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
             NSLog(@"Adicionar - %@",nomeCompleto);
+            [self adicionarCliente:nomeCompleto];
             
         } else {
             
