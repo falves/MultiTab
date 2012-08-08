@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "Cliente.h"
 #import "Item.h"
+#import "ItemViewController.h"
 
 @interface MesaViewController ()
 {
@@ -81,6 +82,15 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([[segue identifier] isEqualToString:@"segueAdicionaItem"]) {
+        ItemViewController * itemVC = [segue destinationViewController];
+        [itemVC setMesa:self.mesa];
+    }
+    
 }
 
 #pragma mark - Botões

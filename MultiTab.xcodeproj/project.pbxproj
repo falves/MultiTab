@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		559BEBA915D2DCA900EAB89B /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559BEBA815D2DCA900EAB89B /* ItemViewController.m */; };
+		559BEBAC15D2E50400EAB89B /* ConsumirItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559BEBAB15D2E50400EAB89B /* ConsumirItemViewController.m */; };
 		55B940C815D1A1A200C11338 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940C715D1A1A200C11338 /* Item.m */; };
 		55B940CB15D1A1A200C11338 /* Cliente.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940CA15D1A1A200C11338 /* Cliente.m */; };
 		55B940CE15D1A1A200C11338 /* Mesa.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940CD15D1A1A200C11338 /* Mesa.m */; };
@@ -42,6 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		559BEBA715D2DCA900EAB89B /* ItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemViewController.h; path = Item/ItemViewController.h; sourceTree = "<group>"; };
+		559BEBA815D2DCA900EAB89B /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemViewController.m; path = Item/ItemViewController.m; sourceTree = "<group>"; };
+		559BEBAA15D2E50400EAB89B /* ConsumirItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConsumirItemViewController.h; path = Item/ConsumirItemViewController.h; sourceTree = "<group>"; };
+		559BEBAB15D2E50400EAB89B /* ConsumirItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConsumirItemViewController.m; path = Item/ConsumirItemViewController.m; sourceTree = "<group>"; };
 		55B940C615D1A1A200C11338 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Item.h; path = Modelos/Item.h; sourceTree = "<group>"; };
 		55B940C715D1A1A200C11338 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = Modelos/Item.m; sourceTree = "<group>"; };
 		55B940C915D1A1A200C11338 /* Cliente.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cliente.h; path = Modelos/Cliente.h; sourceTree = "<group>"; };
@@ -103,6 +109,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		559BEBA515D2DC8E00EAB89B /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				559BEBA715D2DCA900EAB89B /* ItemViewController.h */,
+				559BEBA815D2DCA900EAB89B /* ItemViewController.m */,
+				559BEBAA15D2E50400EAB89B /* ConsumirItemViewController.h */,
+				559BEBAB15D2E50400EAB89B /* ConsumirItemViewController.m */,
+			);
+			name = Item;
+			sourceTree = "<group>";
+		};
 		56AACA4815D125CE00AA255C = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +156,7 @@
 		56AACA5F15D125CE00AA255C /* MultiTab */ = {
 			isa = PBXGroup;
 			children = (
+				559BEBA515D2DC8E00EAB89B /* Item */,
 				56AACA9F15D138FD00AA255C /* Modelos */,
 				56AACA9215D12FF700AA255C /* Mesa */,
 				56AACA9115D126CB00AA255C /* Home */,
@@ -327,6 +345,8 @@
 				55B940C815D1A1A200C11338 /* Item.m in Sources */,
 				55B940CB15D1A1A200C11338 /* Cliente.m in Sources */,
 				55B940CE15D1A1A200C11338 /* Mesa.m in Sources */,
+				559BEBA915D2DCA900EAB89B /* ItemViewController.m in Sources */,
+				559BEBAC15D2E50400EAB89B /* ConsumirItemViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
