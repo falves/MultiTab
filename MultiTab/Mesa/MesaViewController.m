@@ -16,14 +16,20 @@
     IBOutlet UITableView * tableClientes;
     IBOutlet UITableView * tableItens;
     IBOutlet UITextField * nameField;
+    IBOutlet UITextField * txtNomeDaMesa;
+    IBOutlet UILabel * lblNomeDaMesa;
 }
 
-@property (nonatomic, strong) NSMutableArray * listaDeClientes;
+@property (nonatomic, strong) NSArray * listaDeClientes;
 @property (nonatomic, strong) NSMutableArray * listaDeItens;
 @property (nonatomic, strong) NSManagedObjectContext * context;
+@property (nonatomic) AppDelegate * delegate;
+@property (nonatomic) BOOL deletouUltimoCliente;
+@property (nonatomic) BOOL deletouUltimoItem;
 
 
 - (IBAction)pressionouAdicionarPessoa:(UIButton*)sender;
+- (IBAction)pressionouAlterarNomeDaMesa:(UIButton*)sender;
 - (void) atualizaDataSource;
 - (void) exibeAddressBook;
 
@@ -36,6 +42,8 @@
 @synthesize nomeDaMesa = _nomeDaMesa;
 @synthesize listaDeItens = _listaDeItens;
 @synthesize novaMesa;
+@synthesize delegate = _delegate;
+@synthesize deletouUltimoCliente, deletouUltimoItem;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -51,12 +59,14 @@
 {
     [super viewDidLoad];
     
-    AppDelegate * delegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
-    self.context = delegate.managedObjectContext;
+    self.delegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+    self.context = self.delegate.managedObjectContext;
     
     if (self.novaMesa) {
         [self criarNovaMesa];
     }
+    
+    lblNomeDaMesa.text = self.mesa.nome;
     
     [self atualizaDataSource];
     [tableClientes reloadData];
@@ -81,29 +91,32 @@
     [sheet showInView:self.view];
 }
 
+- (IBAction)pressionouAlterarNomeDaMesa:(UIButton*)sender {
+    
+    UIAlertView * dialog = [[UIAlertView alloc] init];
+    [dialog setDelegate:self];
+    [dialog setTitle:@"Digite o novo nome"];
+    [dialog setMessage:@" "];
+    [dialog addButtonWithTitle:@"Cancel"];
+    [dialog addButtonWithTitle:@"OK"];
+    [dialog setTag:1];
+    
+    txtNomeDaMesa = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 45.0, 245.0, 25.0)];
+    [txtNomeDaMesa setBackgroundColor:[UIColor whiteColor]];
+    [txtNomeDaMesa setText:lblNomeDaMesa.text];
+    [dialog addSubview:txtNomeDaMesa];
+    [dialog show];
+}
+
 #pragma mark - Controle de Mesa
 
 - (void) criarNovaMesa {
     
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Mesa" inManagedObjectContext:self.context];
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:entityDescription];
-    
-    NSError *error = nil;
-    NSArray *array = [self.context executeFetchRequest:request error:&error];
-    NSString * nomeDaNovaMesa;
-    
-    if (array == nil)
-    {
-        nomeDaNovaMesa = @"Mesa 0";
-    } else {
-        nomeDaNovaMesa = [NSString stringWithFormat:@"Mesa %d",[array count]];
-    }
     
     NSManagedObject * novaMesaEntity = [NSEntityDescription insertNewObjectForEntityForName:@"Mesa" inManagedObjectContext:self.context];
     self.mesa = (Mesa*) novaMesaEntity;
-    [self.mesa setNome:nomeDaNovaMesa];
-    [self.context save:&error];
+    [self.mesa setNome:@"Nova mesa"];
+    [self.delegate saveContext];
     
 }
 
@@ -128,37 +141,29 @@
 }
 
 - (void) adicionarCliente:(NSString*)nome {
-    
-    NSError *error = nil;
-    
+        
     NSManagedObject * novaMesaEntity = [NSEntityDescription insertNewObjectForEntityForName:@"Cliente" inManagedObjectContext:self.context];
     Cliente * cliente = (Cliente*) novaMesaEntity;
     [cliente setNome:nome];
     [cliente setPertenceMesa:self.mesa];
     [self.mesa addClientesDaMesaObject:cliente];
-    [self.context save:&error];
+    [self.delegate saveContext];
 
     [self atualizaDataSource];
     
     [tableClientes reloadData];
 }
 
+- (void) alterarNomeDaMesa:(NSString*)novoNome {
+    
+    lblNomeDaMesa.text = novoNome;
+    self.mesa.nome = novoNome;
+    [self.delegate saveContext];
+}
+
 - (void) atualizaDataSource {
     
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Cliente" inManagedObjectContext:self.context];
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:entityDescription];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:
-                              @"pertenceMesa == %@", self.mesa];
-    [request setPredicate:predicate];
-    
-    NSError *error = nil;
-    NSArray *array = [self.context executeFetchRequest:request error:&error];
-    
-    if (array != nil) {
-        self.listaDeClientes = [array copy];
-    }
+    self.listaDeClientes = [self.mesa.clientesDaMesa allObjects];
 
 }
 
@@ -169,11 +174,11 @@
     static NSString *CellIdentifier;
     UITableViewCell *cell;
     
-    if ([tableView isEqual:tableClientes]) {
+    if (indexPath.section == 0) {
         if ([self.listaDeClientes count] == 0) {
-            CellIdentifier = @"clientesVaziaCell";
+            CellIdentifier = @"cellClientesVazia";
         } else {
-            CellIdentifier = @"clientesCell";
+            CellIdentifier = @"cellClientes";
         }
         
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -186,7 +191,7 @@
         if ([self.listaDeItens count] == 0) {
             CellIdentifier = @"cellItensVazia";
         } else {
-            CellIdentifier = @"cellItensCheia";
+            CellIdentifier = @"cellClientes";
         }
         
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -202,22 +207,31 @@
     
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if ([tableView isEqual:tableClientes]) {
-        if ([self.listaDeClientes count] == 0) {
-            return 1;
-        } else {
-            return [self.listaDeClientes count];
-        }
-    } else {
-        if ([self.listaDeItens count] == 0) {
-            return 1;
-        } else {
-            return [self.listaDeItens count];
-        }
+    switch (section) {
+        case 0:
+            if ([self.listaDeClientes count] == 0 && !self.deletouUltimoCliente) {
+                return 1;
+            } else {
+                return [self.listaDeClientes count];
+            }
+            break;
+            
+        case 1:
+            if ([self.listaDeItens count] == 0) {
+                return 1;
+            } else {
+                return [self.listaDeItens count];
+            }
+            break;
     }
     
+    return 0;
 }
 
 #pragma mark - UITableViewDelegate
@@ -228,10 +242,44 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
-    if ([tableView isEqual:tableClientes]) {
-        return @"Pessoas";
-    } else {
-        return @"Items compartilhados";
+    switch (section) {
+        case 0:
+            return @"Pessoas";
+            break;
+            
+        case 1:
+            return @"Itens";
+            break;
+    }
+    return @"";
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+   
+    [tableView beginUpdates];
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+
+        Cliente * cliente = [self.listaDeClientes objectAtIndex:indexPath.row];
+        
+        [self.mesa removeClientesDaMesaObject:cliente];
+        [self.delegate saveContext];
+        [self atualizaDataSource];
+        
+        if ([self.listaDeClientes count] == 0) {
+            self.deletouUltimoCliente = YES;
+        } else {
+            self.deletouUltimoCliente = NO;
+        }
+        
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:YES];
+    }
+    
+    [tableView endUpdates];
+    
+    if (self.deletouUltimoCliente) {
+        self.deletouUltimoCliente = NO;
+        [tableClientes reloadData];
     }
 }
 
@@ -243,7 +291,7 @@
     return UITableViewCellEditingStyleDelete;
 }
 
-#pragma mark ABPeoplePickerNavigationControllerDelegate methods
+#pragma mark - ABPeoplePickerNavigationControllerDelegate methods
 // Displays the information of a selected person
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
 {
@@ -319,6 +367,7 @@
             [dialog setMessage:@" "];
             [dialog addButtonWithTitle:@"Cancel"];
             [dialog addButtonWithTitle:@"OK"];
+            [dialog setTag:0];
             
             nameField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 45.0, 245.0, 25.0)];
             [nameField setBackgroundColor:[UIColor whiteColor]];
@@ -335,9 +384,21 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != 0) {
-        [self adicionarCliente:nameField.text];
+    
+    switch (alertView.tag) {
+        case 0:
+            if (buttonIndex != 0) {
+                [self adicionarCliente:nameField.text];
+            }
+            break;
+            
+        case 1:
+            if (buttonIndex != 0) {
+                [self alterarNomeDaMesa:txtNomeDaMesa.text];
+            }
+            break;
     }
+    
 }
 
 

@@ -18,6 +18,8 @@
 
 @property (nonatomic, strong) NSMutableArray * listaDeMesas;
 @property (nonatomic, strong) NSManagedObjectContext * context;
+@property (nonatomic) AppDelegate * delegate;
+@property (nonatomic) BOOL deletouUltimaMesa;
 
 - (void) atualizaDataSource;
 
@@ -27,6 +29,8 @@
 
 @synthesize listaDeMesas = _listaDeMesas;
 @synthesize context = _context;
+@synthesize delegate = _delegate;
+@synthesize deletouUltimaMesa;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,8 +49,8 @@
 {
     [super viewDidLoad];
     
-    AppDelegate * delegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
-    self.context = [delegate managedObjectContext];
+    self.delegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+    self.context = [self.delegate managedObjectContext];
     
 
 }
@@ -112,7 +116,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if ([self.listaDeMesas count] == 0) {
+    if ([self.listaDeMesas count] == 0 && !self.deletouUltimaMesa) {
         return 1;
     } else {
         return [self.listaDeMesas count];
@@ -135,6 +139,43 @@
     } else {
         [mesaVC setMesa:sender];
     }
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView beginUpdates];
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        Mesa * mesa = [self.listaDeMesas objectAtIndex:indexPath.row];
+        
+        [self.context deleteObject:mesa];
+        [self.delegate saveContext];
+        [self atualizaDataSource];
+        
+        if ([self.listaDeMesas count] == 0) {
+            self.deletouUltimaMesa = YES;
+        } else {
+            self.deletouUltimaMesa = NO;
+        }
+        
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:YES];
+    }
+    
+    [tableView endUpdates];
+    
+    if (self.deletouUltimaMesa) {
+        self.deletouUltimaMesa = NO;
+        [tableMesas reloadData];
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
 }
 
 @end
