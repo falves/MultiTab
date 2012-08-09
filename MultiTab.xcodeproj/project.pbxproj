@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		559BEBA915D2DCA900EAB89B /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559BEBA815D2DCA900EAB89B /* ItemViewController.m */; };
 		559BEBAC15D2E50400EAB89B /* ConsumirItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559BEBAB15D2E50400EAB89B /* ConsumirItemViewController.m */; };
+		559BEBC115D3118600EAB89B /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 559BEBBF15D3118600EAB89B /* libTestFlight.a */; };
+		559BEBC415D311E700EAB89B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 559BEBC315D311E700EAB89B /* libz.dylib */; };
 		55B940C815D1A1A200C11338 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940C715D1A1A200C11338 /* Item.m */; };
 		55B940CB15D1A1A200C11338 /* Cliente.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940CA15D1A1A200C11338 /* Cliente.m */; };
 		55B940CE15D1A1A200C11338 /* Mesa.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940CD15D1A1A200C11338 /* Mesa.m */; };
@@ -48,6 +50,9 @@
 		559BEBA815D2DCA900EAB89B /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemViewController.m; path = Item/ItemViewController.m; sourceTree = "<group>"; };
 		559BEBAA15D2E50400EAB89B /* ConsumirItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConsumirItemViewController.h; path = Item/ConsumirItemViewController.h; sourceTree = "<group>"; };
 		559BEBAB15D2E50400EAB89B /* ConsumirItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConsumirItemViewController.m; path = Item/ConsumirItemViewController.m; sourceTree = "<group>"; };
+		559BEBBF15D3118600EAB89B /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		559BEBC015D3118600EAB89B /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		559BEBC315D311E700EAB89B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		55B940C615D1A1A200C11338 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Item.h; path = Modelos/Item.h; sourceTree = "<group>"; };
 		55B940C715D1A1A200C11338 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = Modelos/Item.m; sourceTree = "<group>"; };
 		55B940C915D1A1A200C11338 /* Cliente.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cliente.h; path = Modelos/Cliente.h; sourceTree = "<group>"; };
@@ -86,12 +91,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				559BEBC415D311E700EAB89B /* libz.dylib in Frameworks */,
 				56AACA9E15D1342B00AA255C /* AddressBookUI.framework in Frameworks */,
 				56AACA9C15D1342000AA255C /* AddressBook.framework in Frameworks */,
 				56AACA5815D125CE00AA255C /* UIKit.framework in Frameworks */,
 				56AACA5A15D125CE00AA255C /* Foundation.framework in Frameworks */,
 				56AACA5C15D125CE00AA255C /* CoreGraphics.framework in Frameworks */,
 				56AACA5E15D125CE00AA255C /* CoreData.framework in Frameworks */,
+				559BEBC115D3118600EAB89B /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +127,15 @@
 			name = Item;
 			sourceTree = "<group>";
 		};
+		559BEBBE15D3118600EAB89B /* TestFlight 1.0 */ = {
+			isa = PBXGroup;
+			children = (
+				559BEBBF15D3118600EAB89B /* libTestFlight.a */,
+				559BEBC015D3118600EAB89B /* TestFlight.h */,
+			);
+			path = "TestFlight 1.0";
+			sourceTree = "<group>";
+		};
 		56AACA4815D125CE00AA255C = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +158,7 @@
 		56AACA5615D125CE00AA255C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				559BEBC315D311E700EAB89B /* libz.dylib */,
 				56AACA9D15D1342B00AA255C /* AddressBookUI.framework */,
 				56AACA9B15D1342000AA255C /* AddressBook.framework */,
 				56AACA5715D125CE00AA255C /* UIKit.framework */,
@@ -156,6 +173,7 @@
 		56AACA5F15D125CE00AA255C /* MultiTab */ = {
 			isa = PBXGroup;
 			children = (
+				559BEBBE15D3118600EAB89B /* TestFlight 1.0 */,
 				559BEBA515D2DC8E00EAB89B /* Item */,
 				56AACA9F15D138FD00AA255C /* Modelos */,
 				56AACA9215D12FF700AA255C /* Mesa */,
@@ -444,6 +462,10 @@
 				GCC_PREFIX_HEADER = "MultiTab/MultiTab-Prefix.pch";
 				INFOPLIST_FILE = "MultiTab/MultiTab-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/MultiTab/TestFlight 1.0\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -452,11 +474,17 @@
 		56AACA8815D125CE00AA255C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MultiTab/MultiTab-Prefix.pch";
 				INFOPLIST_FILE = "MultiTab/MultiTab-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/MultiTab/TestFlight 1.0\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -21,6 +21,7 @@
 @property (nonatomic) AppDelegate * delegate;
 @property (nonatomic) NSManagedObjectContext * context;
 @property (nonatomic, strong) NSArray * listaDePessoas;
+@property (nonatomic, strong) NSMutableArray * pessoasSelecionadas;
 
 - (IBAction)pressionouAlterar:(UIButton*)sender;
 - (IBAction)pressionouCancelar:(UIButton*)sender;
@@ -36,6 +37,7 @@
 @synthesize delegate = _delegate;
 @synthesize context = _context;
 @synthesize listaDePessoas = _listaDePessoas;
+@synthesize pessoasSelecionadas = _pessoasSelecionadas;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,6 +60,8 @@
     
     [self atualizaDataSource];
     [tableClientes reloadData];
+    
+    self.pessoasSelecionadas = [NSMutableArray new];
 
 }
 
@@ -122,7 +126,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-#warning ADICIONAR CHECKMARK E CALCULAR OS PREÇOS
     static NSString *CellIdentifier;
     
     if ([self.listaDePessoas count] == 0) {
@@ -137,6 +140,14 @@
         
         Cliente * cliente = [self.listaDePessoas objectAtIndex:indexPath.row];
         cell.textLabel.text = cliente.nome;
+        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
+        if ([self.pessoasSelecionadas containsObject:[self.listaDePessoas objectAtIndex:indexPath.row]]) {
+            [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        } else {
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+        }
     }
     
     return cell;
@@ -145,6 +156,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableClientes deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if ([self.pessoasSelecionadas containsObject:[self.listaDePessoas objectAtIndex:indexPath.row]]) {
+        [self.pessoasSelecionadas removeObject:[self.listaDePessoas objectAtIndex:indexPath.row]];
+    } else {
+        [self.pessoasSelecionadas addObject:[self.listaDePessoas objectAtIndex:indexPath.row]];
+    }
+    [tableClientes reloadData];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
