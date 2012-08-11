@@ -7,7 +7,7 @@
 //
 
 #import "ItemViewController.h"
-#import "Item.h"
+#import "ItemGlobal.h"
 #import "AppDelegate.h"
 #import "ConsumirItemViewController.h"
 #import "ConversorDeDinheiro.h"
@@ -91,8 +91,8 @@
     [txtNome resignFirstResponder];
 //    [txtPreco resignFirstResponder];
     
-    NSManagedObject * novoItemEntity = [NSEntityDescription insertNewObjectForEntityForName:@"Item" inManagedObjectContext:self.context];
-    Item * item = (Item*) novoItemEntity;
+    NSManagedObject * novoItemEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ItemGlobal" inManagedObjectContext:self.context];
+    ItemGlobal * item = (ItemGlobal*) novoItemEntity;
     [item setNome:txtNome.text];
     [self.delegate saveContext];
     
@@ -110,7 +110,7 @@
 
 - (void) atualizaDataSource {
     
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Item" inManagedObjectContext:self.context];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ItemGlobal" inManagedObjectContext:self.context];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDescription];
     
@@ -139,7 +139,7 @@
     
     if ([self.listaDeItens count] != 0) {
         
-        Item * item = [self.listaDeItens objectAtIndex:indexPath.row];
+        ItemGlobal * item = [self.listaDeItens objectAtIndex:indexPath.row];
         cell.textLabel.text = item.nome;
         cell.detailTextLabel.text = [ConversorDeDinheiro converteNumberParaString:item.preco];
     }
@@ -170,7 +170,7 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        Item * item = [self.listaDeItens objectAtIndex:indexPath.row];
+        ItemGlobal * item = [self.listaDeItens objectAtIndex:indexPath.row];
         
         [self.context deleteObject:item];
         [self.delegate saveContext];

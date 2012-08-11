@@ -9,7 +9,7 @@
 #import "MesaViewController.h"
 #import "AppDelegate.h"
 #import "Cliente.h"
-#import "Item.h"
+#import "ItemDaMesa.h"
 #import "ItemViewController.h"
 #import "ConversorDeDinheiro.h"
 
@@ -146,11 +146,11 @@
     
     float valorTotal = 0;
     
-    for (Item * item in cliente.itensIndividuais) {
+    for (ItemDaMesa * item in cliente.itensIndividuais) {
         valorTotal += [item.preco floatValue];
     }
     
-    for (Item * item in cliente.itensCompartilhados) {
+    for (ItemDaMesa * item in cliente.itensCompartilhados) {
         
         int consumidores = [item.quantosConsumiram integerValue];
         float precoInteiro = [item.preco floatValue];
@@ -233,7 +233,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
         if ([self.listaDeItens count] != 0) {
-            Item * item = (Item*)[self.listaDeItens objectAtIndex:indexPath.row];
+            ItemDaMesa * item = (ItemDaMesa*)[self.listaDeItens objectAtIndex:indexPath.row];
             cell.textLabel.text = item.nome;
             cell.detailTextLabel.text = [ConversorDeDinheiro converteNumberParaString:item.preco];
         }

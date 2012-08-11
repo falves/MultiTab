@@ -2,14 +2,14 @@
 //  Mesa.h
 //  MultiTab
 //
-//  Created by Felipe Alves on 07/08/12.
+//  Created by Felipe Alves on 11/08/12.
 //  Copyright (c) 2012 Bolzani. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Cliente, Item;
+@class Cliente, ItemDaMesa;
 
 @interface Mesa : NSManagedObject
 
@@ -25,8 +25,8 @@
 - (void)addClientesDaMesa:(NSSet *)values;
 - (void)removeClientesDaMesa:(NSSet *)values;
 
-- (void)addItensTotaisObject:(Item *)value;
-- (void)removeItensTotaisObject:(Item *)value;
+- (void)addItensTotaisObject:(ItemDaMesa *)value;
+- (void)removeItensTotaisObject:(ItemDaMesa *)value;
 - (void)addItensTotais:(NSSet *)values;
 - (void)removeItensTotais:(NSSet *)values;
 

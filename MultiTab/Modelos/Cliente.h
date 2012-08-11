@@ -2,14 +2,14 @@
 //  Cliente.h
 //  MultiTab
 //
-//  Created by Felipe Alves on 07/08/12.
+//  Created by Felipe Alves on 11/08/12.
 //  Copyright (c) 2012 Bolzani. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Item, Mesa;
+@class ItemDaMesa, Mesa;
 
 @interface Cliente : NSManagedObject
 
@@ -22,13 +22,13 @@
 
 @interface Cliente (CoreDataGeneratedAccessors)
 
-- (void)addItensCompartilhadosObject:(Item *)value;
-- (void)removeItensCompartilhadosObject:(Item *)value;
+- (void)addItensCompartilhadosObject:(ItemDaMesa *)value;
+- (void)removeItensCompartilhadosObject:(ItemDaMesa *)value;
 - (void)addItensCompartilhados:(NSSet *)values;
 - (void)removeItensCompartilhados:(NSSet *)values;
 
-- (void)addItensIndividuaisObject:(Item *)value;
-- (void)removeItensIndividuaisObject:(Item *)value;
+- (void)addItensIndividuaisObject:(ItemDaMesa *)value;
+- (void)removeItensIndividuaisObject:(ItemDaMesa *)value;
 - (void)addItensIndividuais:(NSSet *)values;
 - (void)removeItensIndividuais:(NSSet *)values;
 

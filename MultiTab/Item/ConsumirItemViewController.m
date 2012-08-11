@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "Cliente.h"
 #import "TextFieldsDelegate.h"
+#import "ItemDaMesa.h"
 #import "ConversorDeDinheiro.h"
 
 @interface ConsumirItemViewController ()
@@ -119,12 +120,24 @@
 
 - (IBAction)pressionouConsumir:(UIButton*)sender {
     
-#warning USAR O ID COMO RELACAO
+//#warning USAR O ID COMO RELACAO
     
     NSString * idDaMesa =  [[[self.mesa objectID] URIRepresentation] absoluteString];
     
+    NSManagedObject * novoItemEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ItemDaMesa" inManagedObjectContext:self.context];
+    ItemDaMesa * novoItemDaMesa = (ItemDaMesa*) novoItemEntity;
+    [novoItemDaMesa setNome:self.item.nome];
+    [novoItemDaMesa setPreco:self.item.preco];
+    [novoItemDaMesa setIdDaMesa:idDaMesa];
+    [self.delegate saveContext];
+
+    
+    
     if (segConsumo.selectedSegmentIndex == 1) {
-        self.item.quantosConsumiram = [NSNumber numberWithInt:[self.pessoasSelecionadas count]];
+        novoItemDaMesa.quantosConsumiram = [NSNumber numberWithInt:[self.pessoasSelecionadas count]];
+    } else {
+        novoItemDaMesa.quantosConsumiram = [NSNumber numberWithInt:1];
+
     }
     
     for (Cliente * cliente in self.pessoasSelecionadas) {
@@ -132,14 +145,14 @@
         switch (segConsumo.selectedSegmentIndex) {
                 
             case 0: // Um para cada
-                [cliente addItensIndividuaisObject:self.item];
+                [cliente addItensIndividuaisObject:novoItemDaMesa];
 //                [self.item addClienteIndividualObject:cliente];
                 [self.delegate saveContext];
 
                 break;
                 
             case 1: // Compartilhado
-                [cliente addItensCompartilhadosObject:self.item];
+                [cliente addItensCompartilhadosObject:novoItemDaMesa];
                 [self.delegate saveContext];
 
                 break;
@@ -147,7 +160,7 @@
         
     }
     
-    [self.mesa addItensTotaisObject:self.item];
+    [self.mesa addItensTotaisObject:novoItemDaMesa];
     
     [self.delegate saveContext];
     

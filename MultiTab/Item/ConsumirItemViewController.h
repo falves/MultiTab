@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Item.h"
+#import "ItemGlobal.h"
 #import "Mesa.h"
 
 @interface ConsumirItemViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
-@property (nonatomic) Item * item;
+@property (nonatomic) ItemGlobal * item;
 @property (nonatomic) Mesa * mesa;
 
 @end
