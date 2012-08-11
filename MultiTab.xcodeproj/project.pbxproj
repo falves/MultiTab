@@ -14,6 +14,8 @@
 		55B940C815D1A1A200C11338 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940C715D1A1A200C11338 /* Item.m */; };
 		55B940CB15D1A1A200C11338 /* Cliente.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940CA15D1A1A200C11338 /* Cliente.m */; };
 		55B940CE15D1A1A200C11338 /* Mesa.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940CD15D1A1A200C11338 /* Mesa.m */; };
+		55EE853315D6C2450025C295 /* TextFieldsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EE853215D6C2450025C295 /* TextFieldsDelegate.m */; };
+		55EE853715D6C4950025C295 /* ConversorDeDinheiro.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EE853615D6C4950025C295 /* ConversorDeDinheiro.m */; };
 		56AACA5815D125CE00AA255C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AACA5715D125CE00AA255C /* UIKit.framework */; };
 		56AACA5A15D125CE00AA255C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AACA5915D125CE00AA255C /* Foundation.framework */; };
 		56AACA5C15D125CE00AA255C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AACA5B15D125CE00AA255C /* CoreGraphics.framework */; };
@@ -59,6 +61,10 @@
 		55B940CA15D1A1A200C11338 /* Cliente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cliente.m; path = Modelos/Cliente.m; sourceTree = "<group>"; };
 		55B940CC15D1A1A200C11338 /* Mesa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mesa.h; path = Modelos/Mesa.h; sourceTree = "<group>"; };
 		55B940CD15D1A1A200C11338 /* Mesa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Mesa.m; path = Modelos/Mesa.m; sourceTree = "<group>"; };
+		55EE853115D6C2450025C295 /* TextFieldsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldsDelegate.h; sourceTree = "<group>"; };
+		55EE853215D6C2450025C295 /* TextFieldsDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldsDelegate.m; sourceTree = "<group>"; };
+		55EE853515D6C4950025C295 /* ConversorDeDinheiro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversorDeDinheiro.h; sourceTree = "<group>"; };
+		55EE853615D6C4950025C295 /* ConversorDeDinheiro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversorDeDinheiro.m; sourceTree = "<group>"; };
 		56AACA5315D125CE00AA255C /* MultiTab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiTab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56AACA5715D125CE00AA255C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		56AACA5915D125CE00AA255C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -136,6 +142,17 @@
 			path = "TestFlight 1.0";
 			sourceTree = "<group>";
 		};
+		55EE853015D6C2450025C295 /* Bibliotecas */ = {
+			isa = PBXGroup;
+			children = (
+				55EE853115D6C2450025C295 /* TextFieldsDelegate.h */,
+				55EE853215D6C2450025C295 /* TextFieldsDelegate.m */,
+				55EE853515D6C4950025C295 /* ConversorDeDinheiro.h */,
+				55EE853615D6C4950025C295 /* ConversorDeDinheiro.m */,
+			);
+			path = Bibliotecas;
+			sourceTree = "<group>";
+		};
 		56AACA4815D125CE00AA255C = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +190,7 @@
 		56AACA5F15D125CE00AA255C /* MultiTab */ = {
 			isa = PBXGroup;
 			children = (
+				55EE853015D6C2450025C295 /* Bibliotecas */,
 				559BEBBE15D3118600EAB89B /* TestFlight 1.0 */,
 				559BEBA515D2DC8E00EAB89B /* Item */,
 				56AACA9F15D138FD00AA255C /* Modelos */,
@@ -365,6 +383,8 @@
 				55B940CE15D1A1A200C11338 /* Mesa.m in Sources */,
 				559BEBA915D2DCA900EAB89B /* ItemViewController.m in Sources */,
 				559BEBAC15D2E50400EAB89B /* ConsumirItemViewController.m in Sources */,
+				55EE853315D6C2450025C295 /* TextFieldsDelegate.m in Sources */,
+				55EE853715D6C4950025C295 /* ConversorDeDinheiro.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Mesa.h"
 
-@interface ItemViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface ItemViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (nonatomic) Mesa * mesa;
 

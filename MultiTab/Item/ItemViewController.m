@@ -10,12 +10,13 @@
 #import "Item.h"
 #import "AppDelegate.h"
 #import "ConsumirItemViewController.h"
+#import "ConversorDeDinheiro.h"
 
 @interface ItemViewController ()
 {
     IBOutlet UITableView * tableItens;
     IBOutlet UITextField * txtNome;
-    IBOutlet UITextField * txtPreco;
+//    IBOutlet UITextField * txtPreco;
 }
 
 @property (nonatomic) AppDelegate * delegate;
@@ -56,6 +57,8 @@
     
     self.delegate = (AppDelegate*) [[UIApplication sharedApplication]delegate];
     self.context = [self.delegate managedObjectContext];
+    
+//    [txtPreco setDelegate:self];
 
 }
 
@@ -86,7 +89,7 @@
 - (IBAction)pressionouCadastrar:(UIButton*)sender {
     
     [txtNome resignFirstResponder];
-    [txtPreco resignFirstResponder];
+//    [txtPreco resignFirstResponder];
     
     NSManagedObject * novoItemEntity = [NSEntityDescription insertNewObjectForEntityForName:@"Item" inManagedObjectContext:self.context];
     Item * item = (Item*) novoItemEntity;
@@ -138,7 +141,7 @@
         
         Item * item = [self.listaDeItens objectAtIndex:indexPath.row];
         cell.textLabel.text = item.nome;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"R$ %.2f",[item.preco floatValue]];
+        cell.detailTextLabel.text = [ConversorDeDinheiro converteNumberParaString:item.preco];
     }
     
     return cell;

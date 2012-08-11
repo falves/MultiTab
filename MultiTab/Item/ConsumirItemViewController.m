@@ -9,6 +9,8 @@
 #import "ConsumirItemViewController.h"
 #import "AppDelegate.h"
 #import "Cliente.h"
+#import "TextFieldsDelegate.h"
+#import "ConversorDeDinheiro.h"
 
 @interface ConsumirItemViewController ()
 {
@@ -22,6 +24,7 @@
 @property (nonatomic) NSManagedObjectContext * context;
 @property (nonatomic, strong) NSArray * listaDePessoas;
 @property (nonatomic, strong) NSMutableArray * pessoasSelecionadas;
+@property (nonatomic, strong) TextFieldsDelegate * textFieldsDelegate;
 
 - (IBAction)pressionouAlterar:(UIButton*)sender;
 - (IBAction)pressionouCancelar:(UIButton*)sender;
@@ -56,13 +59,14 @@
     self.context = [self.delegate managedObjectContext];
     
     lblNomeDoItem.text = [self.item nome];
-    lblPreco.text = [NSString stringWithFormat:@"R$ %.2f",[[self.item preco] floatValue]];
+    lblPreco.text =  [ConversorDeDinheiro converteNumberParaString:[self.item preco]];  //[NSString stringWithFormat:@"R$%.2f",[[self.item preco] floatValue]];
     
     [self atualizaDataSource];
     [tableClientes reloadData];
     
     self.pessoasSelecionadas = [NSMutableArray new];
-
+    
+    self.textFieldsDelegate = [TextFieldsDelegate new];
 }
 
 - (void)viewDidUnload
@@ -97,7 +101,13 @@
     [dialog setTag:1];
     
     txtPreco = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 45.0, 245.0, 25.0)];
-    [txtPreco setBackgroundColor:[UIColor whiteColor]];
+    txtPreco.backgroundColor          = [UIColor whiteColor];
+    txtPreco.autocorrectionType       = UITextAutocorrectionTypeNo;
+    txtPreco.delegate                 = self.textFieldsDelegate;
+    txtPreco.keyboardType             = UIKeyboardTypeNumberPad;
+    txtPreco.text                     = lblPreco.text;
+    txtPreco.tag                      = tipoDinheiro;
+    
     [dialog addSubview:txtPreco];
     [dialog show];
 }
@@ -175,13 +185,81 @@
     
     switch (buttonIndex) {
         case 1:
-#warning TRATAR O VALOR CORRETAMENTE
-            [self.item setPreco:[NSNumber numberWithFloat:50]];
+            [self.item setPreco:[ConversorDeDinheiro converteStringParaNumber:txtPreco.text]];
             [self.delegate saveContext];
-            lblPreco.text = @"R$ 50,00";
+            lblPreco.text = [ConversorDeDinheiro converteNumberParaString:[self.item preco]];
             
             break;
     }
 }
+
+//#pragma mark - UITExtFieldDelegate
+//
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//    NSString *text             = textField.text;
+//    NSString *decimalSeperator = @".";
+//    NSCharacterSet *charSet    = nil;
+//    NSString *numberChars      = @"0123456789";
+//    
+//    
+//    // the number formatter will only be instantiated once ...
+//    
+//    static NSNumberFormatter *numberFormatter;
+//    static NSLocale * locale;
+//    if (!numberFormatter)
+//    {
+//        locale = [[NSLocale alloc] initWithLocaleIdentifier:@"PT-BR"];
+//        numberFormatter = [[NSNumberFormatter alloc] init];
+//        [numberFormatter  setLocale:locale];
+//        numberFormatter.numberStyle           = NSNumberFormatterCurrencyStyle;
+//        numberFormatter.maximumFractionDigits = 10;
+//        numberFormatter.minimumFractionDigits = 0;
+//        numberFormatter.decimalSeparator      = decimalSeperator;
+//        numberFormatter.usesGroupingSeparator = NO;
+//    }
+//    
+//    
+//    // create a character set of valid chars (numbers and optionally a decimal sign) ...
+//    
+//    NSRange decimalRange = [text rangeOfString:decimalSeperator];
+//    BOOL isDecimalNumber = (decimalRange.location != NSNotFound);
+//    if (isDecimalNumber)
+//    {
+//        charSet = [NSCharacterSet characterSetWithCharactersInString:numberChars];
+//    }
+//    else
+//    {
+//        numberChars = [numberChars stringByAppendingString:decimalSeperator];
+//        charSet = [NSCharacterSet characterSetWithCharactersInString:numberChars];
+//    }
+//    
+//    
+//    // remove amy characters from the string that are not a number or decimal sign ...
+//    
+//    NSCharacterSet *invertedCharSet = [charSet invertedSet];
+//    NSString *trimmedString = [string stringByTrimmingCharactersInSet:invertedCharSet];
+//    text = [text stringByReplacingCharactersInRange:range withString:trimmedString];
+//    
+//    
+//    // whenever a decimalSeperator is entered, we'll just update the textField.
+//    // whenever other chars are entered, we'll calculate the new number and update the textField accordingly.
+//    
+//    if ([string isEqualToString:decimalSeperator] == YES)
+//    {
+//        textField.text = text;
+//    }
+//    else
+//    {
+//        NSNumber *number = [numberFormatter numberFromString:text];
+//        if (number == nil)
+//        {
+//            number = [NSNumber numberWithInt:0];
+//        }
+//        textField.text = isDecimalNumber ? text : [numberFormatter stringFromNumber:number];
+//    }
+//    
+//    return NO; // we return NO because we have manually edited the textField contents.
+//}
 
 @end
