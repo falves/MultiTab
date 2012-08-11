@@ -11,6 +11,7 @@
 #import "Cliente.h"
 #import "Item.h"
 #import "ItemViewController.h"
+#import "ConversorDeDinheiro.h"
 
 @interface MesaViewController ()
 {
@@ -33,6 +34,7 @@
 - (IBAction)pressionouAlterarNomeDaMesa:(UIButton*)sender;
 - (void) atualizaDataSource;
 - (void) exibeAddressBook;
+- (NSString*) calcularConsumoDoCliente:(Cliente*)cliente;
 
 @end
 
@@ -68,9 +70,7 @@
     }
     
     lblNomeDaMesa.text = self.mesa.nome;
-    
-    [self atualizaDataSource];
-    [tableClientes reloadData];
+
 }
 
 - (void)viewDidUnload
@@ -90,6 +90,12 @@
         ItemViewController * itemVC = [segue destinationViewController];
         [itemVC setMesa:self.mesa];
     }
+    
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self atualizaDataSource];
+    [tableClientes reloadData];
     
 }
 
@@ -135,6 +141,24 @@
 }
 
 #pragma mark - Métodos auxiliares
+
+- (NSString *)calcularConsumoDoCliente:(Cliente *)cliente {
+    
+    float valorTotal = 0;
+    
+    for (Item * item in cliente.itensIndividuais) {
+        valorTotal += [item.preco floatValue];
+    }
+    
+    for (Item * item in cliente.itensCompartilhados) {
+        
+        int consumidores = [item.quantosConsumiram integerValue];
+        float precoInteiro = [item.preco floatValue];
+        valorTotal += precoInteiro / consumidores;
+    }
+    
+    return [ConversorDeDinheiro converteNumberParaString:[NSNumber numberWithFloat:valorTotal]];
+}
 
 - (void) exibeAddressBook {
     ABPeoplePickerNavigationController *picker = [ABPeoplePickerNavigationController new];
@@ -196,6 +220,8 @@
         if ([self.listaDeClientes count] != 0) {
             Cliente * cliente = (Cliente*)[self.listaDeClientes objectAtIndex:indexPath.row];
             cell.textLabel.text = cliente.nome;
+            cell.detailTextLabel.text = [self calcularConsumoDoCliente:cliente];
+            
         }
     } else {
         if ([self.listaDeItens count] == 0) {
@@ -209,7 +235,7 @@
         if ([self.listaDeItens count] != 0) {
             Item * item = (Item*)[self.listaDeItens objectAtIndex:indexPath.row];
             cell.textLabel.text = item.nome;
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"R$ %f",[item.preco floatValue]];
+            cell.detailTextLabel.text = [ConversorDeDinheiro converteNumberParaString:item.preco];
         }
     }
 

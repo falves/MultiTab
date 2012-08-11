@@ -227,7 +227,7 @@
                                 <rect key="frame" x="116" y="403" width="89" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Cancelar">
+                                <state key="normal" title="Concluir">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -268,7 +268,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="SGt-hb-sCR">
-                                <rect key="frame" x="0.0" y="94" width="320" height="301"/>
+                                <rect key="frame" x="0.0" y="138" width="320" height="257"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -380,6 +380,14 @@
                                     <action selector="pressionouConsumir:" destination="BYE-aE-ceG" eventType="touchUpInside" id="Oby-kq-Cye"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="iQo-4H-6Dy">
+                                <rect key="frame" x="47" y="101" width="207" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Um para cada"/>
+                                    <segment title="Compartilhado"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -387,6 +395,7 @@
                     <connections>
                         <outlet property="lblNomeDoItem" destination="Xpm-Ig-ifp" id="XiA-Rw-qVh"/>
                         <outlet property="lblPreco" destination="2Th-wf-8ql" id="3ha-Nr-c0k"/>
+                        <outlet property="segConsumo" destination="iQo-4H-6Dy" id="qq6-i0-xnU"/>
                         <outlet property="tableClientes" destination="SGt-hb-sCR" id="H9f-uI-SO2"/>
                     </connections>
                 </viewController>
@@ -563,6 +572,7 @@
                 <relationship kind="action" name="pressionouConsumir:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="lblNomeDoItem" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="lblPreco" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="segConsumo" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="tableClientes" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="txtPreco" candidateClass="UITextField"/>
             </relationships>
@@ -580,7 +590,6 @@
                 <relationship kind="action" name="pressionouCancelar:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="tableItens" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="txtNome" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtPreco" candidateClass="UITextField"/>
             </relationships>
         </class>
         <class className="MesaViewController" superclassName="UIViewController">

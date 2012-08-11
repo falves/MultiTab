@@ -18,6 +18,7 @@
     IBOutlet UILabel * lblPreco;
     IBOutlet UITableView * tableClientes;
     IBOutlet UITextField * txtPreco;
+    IBOutlet UISegmentedControl * segConsumo;
 }
 
 @property (nonatomic) AppDelegate * delegate;
@@ -118,6 +119,39 @@
 
 - (IBAction)pressionouConsumir:(UIButton*)sender {
     
+#warning USAR O ID COMO RELACAO
+    
+    NSString * idDaMesa =  [[[self.mesa objectID] URIRepresentation] absoluteString];
+    
+    if (segConsumo.selectedSegmentIndex == 1) {
+        self.item.quantosConsumiram = [NSNumber numberWithInt:[self.pessoasSelecionadas count]];
+    }
+    
+    for (Cliente * cliente in self.pessoasSelecionadas) {
+        
+        switch (segConsumo.selectedSegmentIndex) {
+                
+            case 0: // Um para cada
+                [cliente addItensIndividuaisObject:self.item];
+//                [self.item addClienteIndividualObject:cliente];
+                [self.delegate saveContext];
+
+                break;
+                
+            case 1: // Compartilhado
+                [cliente addItensCompartilhadosObject:self.item];
+                [self.delegate saveContext];
+
+                break;
+        }
+        
+    }
+    
+    [self.mesa addItensTotaisObject:self.item];
+    
+    [self.delegate saveContext];
+    
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - UITableViewDatasource
@@ -193,73 +227,5 @@
     }
 }
 
-//#pragma mark - UITExtFieldDelegate
-//
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-//{
-//    NSString *text             = textField.text;
-//    NSString *decimalSeperator = @".";
-//    NSCharacterSet *charSet    = nil;
-//    NSString *numberChars      = @"0123456789";
-//    
-//    
-//    // the number formatter will only be instantiated once ...
-//    
-//    static NSNumberFormatter *numberFormatter;
-//    static NSLocale * locale;
-//    if (!numberFormatter)
-//    {
-//        locale = [[NSLocale alloc] initWithLocaleIdentifier:@"PT-BR"];
-//        numberFormatter = [[NSNumberFormatter alloc] init];
-//        [numberFormatter  setLocale:locale];
-//        numberFormatter.numberStyle           = NSNumberFormatterCurrencyStyle;
-//        numberFormatter.maximumFractionDigits = 10;
-//        numberFormatter.minimumFractionDigits = 0;
-//        numberFormatter.decimalSeparator      = decimalSeperator;
-//        numberFormatter.usesGroupingSeparator = NO;
-//    }
-//    
-//    
-//    // create a character set of valid chars (numbers and optionally a decimal sign) ...
-//    
-//    NSRange decimalRange = [text rangeOfString:decimalSeperator];
-//    BOOL isDecimalNumber = (decimalRange.location != NSNotFound);
-//    if (isDecimalNumber)
-//    {
-//        charSet = [NSCharacterSet characterSetWithCharactersInString:numberChars];
-//    }
-//    else
-//    {
-//        numberChars = [numberChars stringByAppendingString:decimalSeperator];
-//        charSet = [NSCharacterSet characterSetWithCharactersInString:numberChars];
-//    }
-//    
-//    
-//    // remove amy characters from the string that are not a number or decimal sign ...
-//    
-//    NSCharacterSet *invertedCharSet = [charSet invertedSet];
-//    NSString *trimmedString = [string stringByTrimmingCharactersInSet:invertedCharSet];
-//    text = [text stringByReplacingCharactersInRange:range withString:trimmedString];
-//    
-//    
-//    // whenever a decimalSeperator is entered, we'll just update the textField.
-//    // whenever other chars are entered, we'll calculate the new number and update the textField accordingly.
-//    
-//    if ([string isEqualToString:decimalSeperator] == YES)
-//    {
-//        textField.text = text;
-//    }
-//    else
-//    {
-//        NSNumber *number = [numberFormatter numberFromString:text];
-//        if (number == nil)
-//        {
-//            number = [NSNumber numberWithInt:0];
-//        }
-//        textField.text = isDecimalNumber ? text : [numberFormatter stringFromNumber:number];
-//    }
-//    
-//    return NO; // we return NO because we have manually edited the textField contents.
-//}
 
 @end

@@ -11,11 +11,11 @@
 		559BEBAC15D2E50400EAB89B /* ConsumirItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559BEBAB15D2E50400EAB89B /* ConsumirItemViewController.m */; };
 		559BEBC115D3118600EAB89B /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 559BEBBF15D3118600EAB89B /* libTestFlight.a */; };
 		559BEBC415D311E700EAB89B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 559BEBC315D311E700EAB89B /* libz.dylib */; };
-		55B940C815D1A1A200C11338 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940C715D1A1A200C11338 /* Item.m */; };
 		55B940CB15D1A1A200C11338 /* Cliente.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940CA15D1A1A200C11338 /* Cliente.m */; };
 		55B940CE15D1A1A200C11338 /* Mesa.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B940CD15D1A1A200C11338 /* Mesa.m */; };
 		55EE853315D6C2450025C295 /* TextFieldsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EE853215D6C2450025C295 /* TextFieldsDelegate.m */; };
 		55EE853715D6C4950025C295 /* ConversorDeDinheiro.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EE853615D6C4950025C295 /* ConversorDeDinheiro.m */; };
+		55EE853D15D6D7930025C295 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EE853C15D6D7930025C295 /* Item.m */; };
 		56AACA5815D125CE00AA255C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AACA5715D125CE00AA255C /* UIKit.framework */; };
 		56AACA5A15D125CE00AA255C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AACA5915D125CE00AA255C /* Foundation.framework */; };
 		56AACA5C15D125CE00AA255C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AACA5B15D125CE00AA255C /* CoreGraphics.framework */; };
@@ -55,8 +55,6 @@
 		559BEBBF15D3118600EAB89B /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		559BEBC015D3118600EAB89B /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		559BEBC315D311E700EAB89B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		55B940C615D1A1A200C11338 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Item.h; path = Modelos/Item.h; sourceTree = "<group>"; };
-		55B940C715D1A1A200C11338 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = Modelos/Item.m; sourceTree = "<group>"; };
 		55B940C915D1A1A200C11338 /* Cliente.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cliente.h; path = Modelos/Cliente.h; sourceTree = "<group>"; };
 		55B940CA15D1A1A200C11338 /* Cliente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cliente.m; path = Modelos/Cliente.m; sourceTree = "<group>"; };
 		55B940CC15D1A1A200C11338 /* Mesa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mesa.h; path = Modelos/Mesa.h; sourceTree = "<group>"; };
@@ -65,6 +63,8 @@
 		55EE853215D6C2450025C295 /* TextFieldsDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldsDelegate.m; sourceTree = "<group>"; };
 		55EE853515D6C4950025C295 /* ConversorDeDinheiro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversorDeDinheiro.h; sourceTree = "<group>"; };
 		55EE853615D6C4950025C295 /* ConversorDeDinheiro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversorDeDinheiro.m; sourceTree = "<group>"; };
+		55EE853B15D6D7930025C295 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Item.h; path = Modelos/Item.h; sourceTree = "<group>"; };
+		55EE853C15D6D7930025C295 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = Modelos/Item.m; sourceTree = "<group>"; };
 		56AACA5315D125CE00AA255C /* MultiTab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiTab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56AACA5715D125CE00AA255C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		56AACA5915D125CE00AA255C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -256,12 +256,12 @@
 		56AACA9F15D138FD00AA255C /* Modelos */ = {
 			isa = PBXGroup;
 			children = (
+				55EE853B15D6D7930025C295 /* Item.h */,
+				55EE853C15D6D7930025C295 /* Item.m */,
 				55B940CC15D1A1A200C11338 /* Mesa.h */,
 				55B940CD15D1A1A200C11338 /* Mesa.m */,
 				55B940C915D1A1A200C11338 /* Cliente.h */,
 				55B940CA15D1A1A200C11338 /* Cliente.m */,
-				55B940C615D1A1A200C11338 /* Item.h */,
-				55B940C715D1A1A200C11338 /* Item.m */,
 			);
 			name = Modelos;
 			sourceTree = "<group>";
@@ -378,13 +378,13 @@
 				56AACA6D15D125CE00AA255C /* MultiTab.xcdatamodeld in Sources */,
 				56AACA9015D126C700AA255C /* HomeViewController.m in Sources */,
 				56AACA9515D1301600AA255C /* MesaViewController.m in Sources */,
-				55B940C815D1A1A200C11338 /* Item.m in Sources */,
 				55B940CB15D1A1A200C11338 /* Cliente.m in Sources */,
 				55B940CE15D1A1A200C11338 /* Mesa.m in Sources */,
 				559BEBA915D2DCA900EAB89B /* ItemViewController.m in Sources */,
 				559BEBAC15D2E50400EAB89B /* ConsumirItemViewController.m in Sources */,
 				55EE853315D6C2450025C295 /* TextFieldsDelegate.m in Sources */,
 				55EE853715D6C4950025C295 /* ConversorDeDinheiro.m in Sources */,
+				55EE853D15D6D7930025C295 /* Item.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
