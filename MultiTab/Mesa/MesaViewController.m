@@ -23,7 +23,7 @@
 }
 
 @property (nonatomic, strong) NSArray * listaDeClientes;
-@property (nonatomic, strong) NSMutableArray * listaDeItens;
+@property (nonatomic, strong) NSArray * listaDeItens;
 @property (nonatomic, strong) NSManagedObjectContext * context;
 @property (nonatomic) AppDelegate * delegate;
 @property (nonatomic) BOOL deletouUltimoCliente;
@@ -197,7 +197,8 @@
 
 - (void) atualizaDataSource {
     
-    self.listaDeClientes = [self.mesa.clientesDaMesa allObjects];
+    self.listaDeClientes    = [self.mesa.clientesDaMesa allObjects];
+    self.listaDeItens       = [self.mesa.itensTotais allObjects];
 
 }
 
@@ -259,7 +260,7 @@
             break;
             
         case 1:
-            if ([self.listaDeItens count] == 0) {
+            if ([self.listaDeItens count] == 0 && !self.deletouUltimoItem) {
                 return 1;
             } else {
                 return [self.listaDeItens count];
@@ -290,31 +291,120 @@
     return @"";
 }
 
+//[tableView beginUpdates];
+//
+//if (editingStyle == UITableViewCellEditingStyleDelete) {
+//    
+//    Cliente * cliente;
+//    ItemDaMesa * item;
+//    
+//    switch (indexPath.section) {
+//            
+//        case 0: // Removeu um cliente
+//            cliente = [self.listaDeClientes objectAtIndex:indexPath.row];
+//            
+//            [self.mesa removeClientesDaMesaObject:cliente];
+//            [self.delegate saveContext];
+//            [self atualizaDataSource];
+//            
+//            if ([self.listaDeClientes count] == 0) {
+//                self.deletouUltimoCliente = YES;
+//            } else {
+//                self.deletouUltimoCliente = NO;
+//            }
+//            
+//            break;
+//            
+//        case 1: //Removeu um item
+//            item = [self.listaDeItens objectAtIndex:indexPath.row];
+//            
+//            [self.mesa removeItensTotaisObject:item];
+//            [self.delegate saveContext];
+//            [self atualizaDataSource];
+//            
+//            if ([self.listaDeItens count] == 0) {
+//                self.deletouUltimoItem = YES;
+//            } else {
+//                self.deletouUltimoItem = NO;
+//            }
+//            break;
+//    }
+//    
+//    
+//    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:YES];
+//}
+//
+//[tableView endUpdates];
+//
+//if (self.deletouUltimoCliente) {
+//    self.deletouUltimoCliente = NO;
+//    [tableClientes reloadData];
+//}
+//
+//if (self.deletouUltimoItem) {
+//    self.deletouUltimoItem = NO;
+//    [tableClientes reloadData];
+//}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
    
     [tableView beginUpdates];
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-
-        Cliente * cliente = [self.listaDeClientes objectAtIndex:indexPath.row];
         
-        [self.mesa removeClientesDaMesaObject:cliente];
-        [self.delegate saveContext];
-        [self atualizaDataSource];
+        Cliente * cliente;
+        ItemDaMesa * item;
         
-        if ([self.listaDeClientes count] == 0) {
-            self.deletouUltimoCliente = YES;
-        } else {
-            self.deletouUltimoCliente = NO;
+        switch (indexPath.section) {
+            case 0:
+                
+                cliente = (Cliente*)[self.listaDeClientes objectAtIndex:indexPath.row];
+                
+                [self.mesa removeClientesDaMesaObject:cliente];
+                [self.delegate saveContext];
+                [self atualizaDataSource];
+                
+                if ([self.listaDeClientes count] == 0) {
+                    self.deletouUltimoCliente = YES;
+                } else {
+                    self.deletouUltimoCliente = NO;
+                }
+                
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:YES];
+                
+                break;
+                
+            case 1:
+                
+                item = (ItemDaMesa*)[self.listaDeItens objectAtIndex:indexPath.row];
+                
+                [self.mesa removeItensTotaisObject:item];
+                [self.delegate saveContext];
+                [self atualizaDataSource];
+                
+                if ([self.listaDeItens count] == 0) {
+                    self.deletouUltimoItem = YES;
+                } else {
+                    self.deletouUltimoItem = NO;
+                }
+                
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:YES];
+                
+                break;
         }
+
         
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:YES];
     }
     
     [tableView endUpdates];
     
     if (self.deletouUltimoCliente) {
         self.deletouUltimoCliente = NO;
+        [tableClientes reloadData];
+    }
+    
+    if (self.deletouUltimoItem) {
+        self.deletouUltimoItem = NO;
         [tableClientes reloadData];
     }
 }
