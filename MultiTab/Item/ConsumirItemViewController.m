@@ -123,48 +123,95 @@
 //#warning USAR O ID COMO RELACAO
     
     NSString * idDaMesa =  [[[self.mesa objectID] URIRepresentation] absoluteString];
+    NSManagedObject * novoItemEntity;
+    ItemDaMesa * novoItemDaMesa;
     
-    NSManagedObject * novoItemEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ItemDaMesa" inManagedObjectContext:self.context];
-    ItemDaMesa * novoItemDaMesa = (ItemDaMesa*) novoItemEntity;
-    [novoItemDaMesa setNome:self.item.nome];
-    [novoItemDaMesa setPreco:self.item.preco];
-    [novoItemDaMesa setIdDaMesa:idDaMesa];
-    [self.delegate saveContext];
-
-    
-    
-    if (segConsumo.selectedSegmentIndex == 1) {
-        novoItemDaMesa.quantosConsumiram = [NSNumber numberWithInt:[self.pessoasSelecionadas count]];
-    } else {
-        novoItemDaMesa.quantosConsumiram = [NSNumber numberWithInt:1];
-
-    }
-    
-    for (Cliente * cliente in self.pessoasSelecionadas) {
-        
-        switch (segConsumo.selectedSegmentIndex) {
+    switch (segConsumo.selectedSegmentIndex) {
+            
+        case 0:
+            
+            for (Cliente * cliente in self.pessoasSelecionadas) {
                 
-            case 0: // Um para cada
+                novoItemEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ItemDaMesa" inManagedObjectContext:self.context];
+                novoItemDaMesa = (ItemDaMesa*) novoItemEntity;
+                [novoItemDaMesa setNome:self.item.nome];
+                [novoItemDaMesa setPreco:self.item.preco];
+                [novoItemDaMesa setIdDaMesa:idDaMesa];
+                [novoItemDaMesa setQuantosConsumiram:[NSNumber numberWithInt:1]];
+                
+                [self.mesa addItensTotaisObject:novoItemDaMesa];
                 [cliente addItensIndividuaisObject:novoItemDaMesa];
-//                [self.item addClienteIndividualObject:cliente];
-                [self.delegate saveContext];
-
-                break;
                 
-            case 1: // Compartilhado
+                [self.delegate saveContext];
+                
+                
+                
+            }
+            
+            break;
+            
+        case 1:
+            
+            novoItemEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ItemDaMesa" inManagedObjectContext:self.context];
+            novoItemDaMesa = (ItemDaMesa*) novoItemEntity;
+            [novoItemDaMesa setNome:self.item.nome];
+            [novoItemDaMesa setPreco:self.item.preco];
+            [novoItemDaMesa setIdDaMesa:idDaMesa];
+            [novoItemDaMesa setQuantosConsumiram:[NSNumber numberWithInt:[self.pessoasSelecionadas count]]];
+            [self.mesa addItensTotaisObject:novoItemDaMesa];
+            
+            [self.delegate saveContext];
+            
+            for (Cliente * cliente in self.pessoasSelecionadas) {
                 [cliente addItensCompartilhadosObject:novoItemDaMesa];
                 [self.delegate saveContext];
-
-                break;
-        }
-        
+            }
+            
+            break;
     }
     
-    [self.mesa addItensTotaisObject:novoItemDaMesa];
-    
-    [self.delegate saveContext];
-    
     [self dismissModalViewControllerAnimated:YES];
+    
+//    NSManagedObject * novoItemEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ItemDaMesa" inManagedObjectContext:self.context];
+//    ItemDaMesa * novoItemDaMesa = (ItemDaMesa*) novoItemEntity;
+//    [novoItemDaMesa setNome:self.item.nome];
+//    [novoItemDaMesa setPreco:self.item.preco];
+//    [novoItemDaMesa setIdDaMesa:idDaMesa];
+//    [self.delegate saveContext];
+//
+//    
+//    
+//    if (segConsumo.selectedSegmentIndex == 1) {
+//        novoItemDaMesa.quantosConsumiram = [NSNumber numberWithInt:[self.pessoasSelecionadas count]];
+//    } else {
+//        novoItemDaMesa.quantosConsumiram = [NSNumber numberWithInt:1];
+//
+//    }
+//    
+//    for (Cliente * cliente in self.pessoasSelecionadas) {
+//        
+//        switch (segConsumo.selectedSegmentIndex) {
+//                
+//            case 0: // Um para cada
+//                [cliente addItensIndividuaisObject:novoItemDaMesa];
+//                [self.delegate saveContext];
+//
+//                break;
+//                
+//            case 1: // Compartilhado
+//                [cliente addItensCompartilhadosObject:novoItemDaMesa];
+//                [self.delegate saveContext];
+//
+//                break;
+//        }
+//        
+//    }
+//    
+//    [self.mesa addItensTotaisObject:novoItemDaMesa];
+//    
+//    [self.delegate saveContext];
+//    
+//    [self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - UITableViewDatasource

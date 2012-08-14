@@ -17,6 +17,7 @@
 		55E2EBF915D7111900C358F7 /* Mesa.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E2EBF815D7111900C358F7 /* Mesa.m */; };
 		55EE853315D6C2450025C295 /* TextFieldsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EE853215D6C2450025C295 /* TextFieldsDelegate.m */; };
 		55EE853715D6C4950025C295 /* ConversorDeDinheiro.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EE853615D6C4950025C295 /* ConversorDeDinheiro.m */; };
+		5688A97215D9FD6F0024D79C /* DetalhesClienteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5688A97115D9FD6F0024D79C /* DetalhesClienteViewController.m */; };
 		56AACA5815D125CE00AA255C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AACA5715D125CE00AA255C /* UIKit.framework */; };
 		56AACA5A15D125CE00AA255C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AACA5915D125CE00AA255C /* Foundation.framework */; };
 		56AACA5C15D125CE00AA255C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AACA5B15D125CE00AA255C /* CoreGraphics.framework */; };
@@ -68,6 +69,8 @@
 		55EE853215D6C2450025C295 /* TextFieldsDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldsDelegate.m; sourceTree = "<group>"; };
 		55EE853515D6C4950025C295 /* ConversorDeDinheiro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversorDeDinheiro.h; sourceTree = "<group>"; };
 		55EE853615D6C4950025C295 /* ConversorDeDinheiro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversorDeDinheiro.m; sourceTree = "<group>"; };
+		5688A97015D9FD6F0024D79C /* DetalhesClienteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetalhesClienteViewController.h; path = "Detalhes do cliente/DetalhesClienteViewController.h"; sourceTree = "<group>"; };
+		5688A97115D9FD6F0024D79C /* DetalhesClienteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetalhesClienteViewController.m; path = "Detalhes do cliente/DetalhesClienteViewController.m"; sourceTree = "<group>"; };
 		56AACA5315D125CE00AA255C /* MultiTab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiTab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56AACA5715D125CE00AA255C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		56AACA5915D125CE00AA255C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -156,6 +159,15 @@
 			path = Bibliotecas;
 			sourceTree = "<group>";
 		};
+		5688A96E15D9FD410024D79C /* Detalhes do cliente */ = {
+			isa = PBXGroup;
+			children = (
+				5688A97015D9FD6F0024D79C /* DetalhesClienteViewController.h */,
+				5688A97115D9FD6F0024D79C /* DetalhesClienteViewController.m */,
+			);
+			name = "Detalhes do cliente";
+			sourceTree = "<group>";
+		};
 		56AACA4815D125CE00AA255C = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +205,7 @@
 		56AACA5F15D125CE00AA255C /* MultiTab */ = {
 			isa = PBXGroup;
 			children = (
+				5688A96E15D9FD410024D79C /* Detalhes do cliente */,
 				55EE853015D6C2450025C295 /* Bibliotecas */,
 				559BEBBE15D3118600EAB89B /* TestFlight 1.0 */,
 				559BEBA515D2DC8E00EAB89B /* Item */,
@@ -391,6 +404,7 @@
 				55E2EBF315D7111900C358F7 /* Cliente.m in Sources */,
 				55E2EBF615D7111900C358F7 /* ItemGlobal.m in Sources */,
 				55E2EBF915D7111900C358F7 /* Mesa.m in Sources */,
+				5688A97215D9FD6F0024D79C /* DetalhesClienteViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

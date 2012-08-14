@@ -20,6 +20,7 @@
     IBOutlet UITextField * nameField;
     IBOutlet UITextField * txtNomeDaMesa;
     IBOutlet UILabel * lblNomeDaMesa;
+    IBOutlet UILabel * lblValorDaMesa;
 }
 
 @property (nonatomic, strong) NSArray * listaDeClientes;
@@ -136,10 +137,6 @@
     
 }
 
-- (void) carregarMesaExistente {
-    
-}
-
 #pragma mark - Métodos auxiliares
 
 - (NSString *)calcularConsumoDoCliente:(Cliente *)cliente {
@@ -195,10 +192,29 @@
     [self.delegate saveContext];
 }
 
+- (void) atualizaValorDaMesa {
+    
+    float valorTotal = 0;
+    
+    for (ItemDaMesa * item in self.mesa.itensTotais) {
+        valorTotal += [item.preco floatValue];
+    }
+    
+//    Inserir os 10%
+//    valorTotal = valorTotal * 1.1;
+    
+    NSString * valorString = [ConversorDeDinheiro converteNumberParaString:[NSNumber numberWithFloat:valorTotal]];
+
+    lblValorDaMesa.text = valorString;
+    
+}
+
 - (void) atualizaDataSource {
     
     self.listaDeClientes    = [self.mesa.clientesDaMesa allObjects];
     self.listaDeItens       = [self.mesa.itensTotais allObjects];
+    
+    [self atualizaValorDaMesa];
 
 }
 
@@ -228,7 +244,7 @@
         if ([self.listaDeItens count] == 0) {
             CellIdentifier = @"cellItensVazia";
         } else {
-            CellIdentifier = @"cellClientes";
+            CellIdentifier = @"cellItens";
         }
         
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -236,7 +252,11 @@
         if ([self.listaDeItens count] != 0) {
             ItemDaMesa * item = (ItemDaMesa*)[self.listaDeItens objectAtIndex:indexPath.row];
             cell.textLabel.text = item.nome;
-            cell.detailTextLabel.text = [ConversorDeDinheiro converteNumberParaString:item.preco];
+            if ([item.quantosConsumiram integerValue] == 1) {
+                cell.detailTextLabel.text = @"1 pessoa consumiu.";
+            } else {
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ pessoas consumiram.",item.quantosConsumiram];
+            }
         }
     }
 
@@ -377,8 +397,9 @@
             case 1:
                 
                 item = (ItemDaMesa*)[self.listaDeItens objectAtIndex:indexPath.row];
+                [self.context deleteObject:item];
                 
-                [self.mesa removeItensTotaisObject:item];
+                
                 [self.delegate saveContext];
                 [self atualizaDataSource];
                 
@@ -400,13 +421,13 @@
     
     if (self.deletouUltimoCliente) {
         self.deletouUltimoCliente = NO;
-        [tableClientes reloadData];
     }
     
     if (self.deletouUltimoItem) {
         self.deletouUltimoItem = NO;
-        [tableClientes reloadData];
     }
+    
+    [tableClientes reloadData];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
