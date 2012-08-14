@@ -1,5 +1,5 @@
 //
-//  DetalhesDoItemViewController.h
+//  AdicionarClienteViewController.h
 //  MultiTab
 //
 //  Created by Felipe on 14/08/12.
@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ItemDaMesa.h"
 #import "Cliente.h"
 #import "Mesa.h"
+#import "ItemDaMesa.h"
 
-@interface DetalhesDoItemViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface AdicionarClienteViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) ItemDaMesa * item;
 @property (nonatomic) Mesa * mesa;

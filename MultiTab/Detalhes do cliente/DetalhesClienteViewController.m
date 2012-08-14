@@ -71,6 +71,13 @@
 
 - (void)atualizaDataSource {
     self.listaDeItens = [NSArray arrayWithArray:[self.cliente.itens allObjects]];
+    
+    self.listaDeItens = [self.listaDeItens sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSString *first = [(ItemDaMesa*)a nome];
+        NSString *second = [(ItemDaMesa*)b nome];
+        return [first compare:second];
+    }];
+    
     [self atualizaValorTotalIndividual];
 }
 
@@ -193,7 +200,10 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    if ([self.listaDeItens count] == 0)
+        return NO;
+    else
+        return YES;
 }
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {

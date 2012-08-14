@@ -120,6 +120,13 @@
     
     if (array != nil) {
         self.listaDeItens = [array copy];
+        
+        self.listaDeItens = [self.listaDeItens sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            NSString *first = [(ItemGlobal*)a nome];
+            NSString *second = [(ItemGlobal*)b nome];
+            return [first compare:second];
+        }];
+        
     }
 }
 
@@ -143,6 +150,9 @@
         cell.textLabel.text = item.nome;
         cell.detailTextLabel.text = [ConversorDeDinheiro converteNumberParaString:item.preco];
     }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     
     return cell;
     
@@ -194,7 +204,12 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    
+    if ([self.listaDeItens count] == 0)
+        return NO;
+    else
+        return YES;
+    
 }
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {

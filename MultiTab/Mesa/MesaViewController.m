@@ -35,6 +35,7 @@
 
 - (IBAction)pressionouAdicionarPessoa:(UIButton*)sender;
 - (IBAction)pressionouAlterarNomeDaMesa:(UIButton*)sender;
+- (IBAction)presionouEsvaziarMesa:(UIButton*)sender;
 - (void) atualizaDataSource;
 - (void) exibeAddressBook;
 - (NSString*) calcularConsumoDoCliente:(Cliente*)cliente;
@@ -72,7 +73,7 @@
         [self criarNovaMesa];
     }
     
-    lblNomeDaMesa.text = self.mesa.nome;
+    self.title = self.mesa.nome;
 
 }
 
@@ -104,6 +105,7 @@
         NSIndexPath * indexPath = (NSIndexPath*)sender;
         DetalhesDoItemViewController * detalhesVC = [segue destinationViewController];
         [detalhesVC setItem:[self.listaDeItens objectAtIndex:indexPath.row]];
+        [detalhesVC setMesa:self.mesa];
     }
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -114,6 +116,17 @@
 }
 
 #pragma mark - Botões
+
+- (IBAction)presionouEsvaziarMesa:(UIButton*)sender {
+    
+    for (ItemDaMesa * item in self.mesa.itensTotais) {
+        [self.context deleteObject:item];
+    }
+    
+    [self.delegate saveContext];
+    [self atualizaDataSource];
+    [tableClientes reloadData];
+}
 
 - (void)pressionouAdicionarPessoa:(UIButton *)sender {
     
@@ -196,7 +209,7 @@
 
 - (void) alterarNomeDaMesa:(NSString*)novoNome {
     
-    lblNomeDaMesa.text = novoNome;
+    self.title = novoNome;
     self.mesa.nome = novoNome;
     [self.delegate saveContext];
 }
@@ -222,6 +235,18 @@
     
     self.listaDeClientes    = [self.mesa.clientesDaMesa allObjects];
     self.listaDeItens       = [self.mesa.itensTotais allObjects];
+    
+    self.listaDeItens = [self.listaDeItens sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSString *first = [(ItemDaMesa*)a nome];
+        NSString *second = [(ItemDaMesa*)b nome];
+        return [first compare:second];
+    }];
+    
+    self.listaDeClientes = [self.listaDeClientes sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSString *first = [(Cliente*)a nome];
+        NSString *second = [(Cliente*)b nome];
+        return [first compare:second];
+    }];
     
     [self atualizaValorDaMesa];
 
@@ -269,6 +294,8 @@
         }
     }
 
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
     
 }
@@ -459,7 +486,29 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    
+    switch (indexPath.section) {
+        case 0:
+            
+            if ([self.listaDeClientes count] == 0)
+                return NO;
+            else
+                return YES;
+            
+            break;
+            
+        case 1:
+            
+            if ([self.listaDeItens count] == 0)
+                return NO;
+            else
+                return YES;
+            
+            break;
+    }
+    
+    return NO;
+    
 }
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -9,6 +9,7 @@
 #import "DetalhesDoItemViewController.h"
 #import "AppDelegate.h"
 #import "ConversorDeDinheiro.h"
+#import "AdicionarClienteViewController.h"
 
 @interface DetalhesDoItemViewController ()
 {
@@ -23,6 +24,7 @@
 
 - (void) atualizaDataSource;
 - (NSString*) calcularPrecoIndividual;
+- (IBAction)pressionouAdicionarCliente:(UIButton*)sender;
 
 @end
 
@@ -33,6 +35,7 @@
 @synthesize delegate                = _delegate;
 @synthesize deletouUltimoCliente    = _deletouUltimoCliente;
 @synthesize listaDeClientes         = _listaDeClientes;
+@synthesize mesa                    = _mesa;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,6 +46,13 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self atualizaDataSource];
+    [tableClientes reloadData];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -51,8 +61,7 @@
     
     self.delegate   = (AppDelegate*) [[UIApplication sharedApplication] delegate];
     self.context    = [self.delegate managedObjectContext];
-    [self atualizaDataSource];
-    [tableClientes reloadData];
+    
     
     lblPrecoDoItem.text = [ConversorDeDinheiro converteNumberParaString:self.item.preco];
 }
@@ -68,11 +77,32 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    AdicionarClienteViewController * adicionarVC = [segue destinationViewController];
+    [adicionarVC setMesa:self.mesa];
+    [adicionarVC setItem:self.item];
+    
+}
+
+#pragma mark - Métodos dos botões
+
+- (IBAction)pressionouAdicionarCliente:(UIButton*)sender {
+
+    [self performSegueWithIdentifier:@"segueAdicionarCliente" sender:nil];
+}
+
 #pragma mark - Métodos auxiliares
 
 - (void)atualizaDataSource {
     
     self.listaDeClientes = [NSArray arrayWithArray:[self.item.conssumidores allObjects]];
+    
+    self.listaDeClientes = [self.listaDeClientes sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSString *first = [(Cliente*)a nome];
+        NSString *second = [(Cliente*)b nome];
+        return [first compare:second];
+    }];
 
 }
 
@@ -90,7 +120,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"cellDetalhesDoItem";
+    static NSString *CellIdentifier;
+    
+    if ([self.listaDeClientes count] == 0)
+        CellIdentifier = @"cellDetalhesDoItemVazia";
+    else
+        CellIdentifier = @"cellDetalhesDoItem";
+    
     UITableViewCell *cell;
     
     cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -148,6 +184,12 @@
 //            [self dismissModalViewControllerAnimated:YES];
 //        }
         
+        if (quantosConsumiram == 0) {
+            self.deletouUltimoCliente = YES;
+        } else {
+            self.deletouUltimoCliente = NO;
+        }
+        
         [self.item setQuantosConsumiram:[NSNumber numberWithInt:quantosConsumiram]];
         
         [cliente removeItensObject:self.item];
@@ -161,11 +203,19 @@
     }
     [tableView endUpdates];
     
+    if (self.deletouUltimoCliente) {
+        self.deletouUltimoCliente = NO;
+    }
+    
     [tableClientes reloadData];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    
+    if ([self.listaDeClientes count] == 0)
+        return NO;
+    else
+        return YES;
 }
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {

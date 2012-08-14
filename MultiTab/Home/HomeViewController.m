@@ -52,7 +52,7 @@
     self.delegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
     self.context = [self.delegate managedObjectContext];
     
-
+    self.title = @"Home";
 }
 
 - (void)viewDidUnload
@@ -87,6 +87,10 @@
 }
 
 #pragma mark - UITableViewDatasource
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"Mesas cadastradas";
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
