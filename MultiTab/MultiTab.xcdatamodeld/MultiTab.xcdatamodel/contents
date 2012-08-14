@@ -3,8 +3,7 @@
     <entity name="Cliente" representedClassName="Cliente" syncable="YES">
         <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="parcial" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <relationship name="itensCompartilhados" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemDaMesa" inverseName="clienteCompartilhado" inverseEntity="ItemDaMesa" syncable="YES"/>
-        <relationship name="itensIndividuais" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemDaMesa" inverseName="clienteIndividual" inverseEntity="ItemDaMesa" syncable="YES"/>
+        <relationship name="itens" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemDaMesa" inverseName="conssumidores" inverseEntity="ItemDaMesa" syncable="YES"/>
         <relationship name="pertenceMesa" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Mesa" inverseName="clientesDaMesa" inverseEntity="Mesa" syncable="YES"/>
     </entity>
     <entity name="ItemDaMesa" representedClassName="ItemDaMesa" syncable="YES">
@@ -12,8 +11,7 @@
         <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="preco" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="quantosConsumiram" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <relationship name="clienteCompartilhado" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Cliente" inverseName="itensCompartilhados" inverseEntity="Cliente" syncable="YES"/>
-        <relationship name="clienteIndividual" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Cliente" inverseName="itensIndividuais" inverseEntity="Cliente" syncable="YES"/>
+        <relationship name="conssumidores" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Cliente" inverseName="itens" inverseEntity="Cliente" syncable="YES"/>
         <relationship name="pertenceMesa" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Mesa" inverseName="itensTotais" inverseEntity="Mesa" syncable="YES"/>
     </entity>
     <entity name="ItemGlobal" representedClassName="ItemGlobal" syncable="YES">
@@ -26,9 +24,9 @@
         <relationship name="itensTotais" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemDaMesa" inverseName="pertenceMesa" inverseEntity="ItemDaMesa" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Cliente" positionX="0" positionY="0" width="128" height="118"/>
-        <element name="ItemDaMesa" positionX="160" positionY="192" width="128" height="150"/>
-        <element name="ItemGlobal" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Mesa" positionX="0" positionY="0" width="128" height="88"/>
+        <element name="Cliente" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ItemDaMesa" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ItemGlobal" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Mesa" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

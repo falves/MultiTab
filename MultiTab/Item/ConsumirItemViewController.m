@@ -140,7 +140,7 @@
                 [novoItemDaMesa setQuantosConsumiram:[NSNumber numberWithInt:1]];
                 
                 [self.mesa addItensTotaisObject:novoItemDaMesa];
-                [cliente addItensIndividuaisObject:novoItemDaMesa];
+                [cliente addItensObject:novoItemDaMesa];
                 
                 [self.delegate saveContext];
                 
@@ -163,7 +163,7 @@
             [self.delegate saveContext];
             
             for (Cliente * cliente in self.pessoasSelecionadas) {
-                [cliente addItensCompartilhadosObject:novoItemDaMesa];
+                [cliente addItensObject:novoItemDaMesa];
                 [self.delegate saveContext];
             }
             

@@ -12,8 +12,8 @@
 		559BEBC115D3118600EAB89B /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 559BEBBF15D3118600EAB89B /* libTestFlight.a */; };
 		559BEBC415D311E700EAB89B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 559BEBC315D311E700EAB89B /* libz.dylib */; };
 		55DBC86B15DA66EB0046BF9D /* DetalhesDoItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DBC86A15DA66EB0046BF9D /* DetalhesDoItemViewController.m */; };
-		55E2EBF015D7111900C358F7 /* ItemDaMesa.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E2EBEF15D7111900C358F7 /* ItemDaMesa.m */; };
-		55E2EBF315D7111900C358F7 /* Cliente.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E2EBF215D7111900C358F7 /* Cliente.m */; };
+		55DBC86E15DA71F70046BF9D /* Cliente.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DBC86D15DA71F70046BF9D /* Cliente.m */; };
+		55DBC87115DA71F70046BF9D /* ItemDaMesa.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DBC87015DA71F70046BF9D /* ItemDaMesa.m */; };
 		55E2EBF615D7111900C358F7 /* ItemGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E2EBF515D7111900C358F7 /* ItemGlobal.m */; };
 		55E2EBF915D7111900C358F7 /* Mesa.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E2EBF815D7111900C358F7 /* Mesa.m */; };
 		55EE853315D6C2450025C295 /* TextFieldsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EE853215D6C2450025C295 /* TextFieldsDelegate.m */; };
@@ -60,10 +60,10 @@
 		559BEBC315D311E700EAB89B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		55DBC86915DA66EB0046BF9D /* DetalhesDoItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetalhesDoItemViewController.h; path = "Detalhes do item/DetalhesDoItemViewController.h"; sourceTree = "<group>"; };
 		55DBC86A15DA66EB0046BF9D /* DetalhesDoItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetalhesDoItemViewController.m; path = "Detalhes do item/DetalhesDoItemViewController.m"; sourceTree = "<group>"; };
-		55E2EBEE15D7111900C358F7 /* ItemDaMesa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemDaMesa.h; path = Modelos/ItemDaMesa.h; sourceTree = "<group>"; };
-		55E2EBEF15D7111900C358F7 /* ItemDaMesa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemDaMesa.m; path = Modelos/ItemDaMesa.m; sourceTree = "<group>"; };
-		55E2EBF115D7111900C358F7 /* Cliente.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cliente.h; path = Modelos/Cliente.h; sourceTree = "<group>"; };
-		55E2EBF215D7111900C358F7 /* Cliente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cliente.m; path = Modelos/Cliente.m; sourceTree = "<group>"; };
+		55DBC86C15DA71F70046BF9D /* Cliente.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cliente.h; path = Modelos/Cliente.h; sourceTree = "<group>"; };
+		55DBC86D15DA71F70046BF9D /* Cliente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cliente.m; path = Modelos/Cliente.m; sourceTree = "<group>"; };
+		55DBC86F15DA71F70046BF9D /* ItemDaMesa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemDaMesa.h; path = Modelos/ItemDaMesa.h; sourceTree = "<group>"; };
+		55DBC87015DA71F70046BF9D /* ItemDaMesa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemDaMesa.m; path = Modelos/ItemDaMesa.m; sourceTree = "<group>"; };
 		55E2EBF415D7111900C358F7 /* ItemGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemGlobal.h; path = Modelos/ItemGlobal.h; sourceTree = "<group>"; };
 		55E2EBF515D7111900C358F7 /* ItemGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemGlobal.m; path = Modelos/ItemGlobal.m; sourceTree = "<group>"; };
 		55E2EBF715D7111900C358F7 /* Mesa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mesa.h; path = Modelos/Mesa.h; sourceTree = "<group>"; };
@@ -285,14 +285,14 @@
 		56AACA9F15D138FD00AA255C /* Modelos */ = {
 			isa = PBXGroup;
 			children = (
+				55DBC86F15DA71F70046BF9D /* ItemDaMesa.h */,
+				55DBC87015DA71F70046BF9D /* ItemDaMesa.m */,
+				55DBC86C15DA71F70046BF9D /* Cliente.h */,
+				55DBC86D15DA71F70046BF9D /* Cliente.m */,
 				55E2EBF715D7111900C358F7 /* Mesa.h */,
 				55E2EBF815D7111900C358F7 /* Mesa.m */,
 				55E2EBF415D7111900C358F7 /* ItemGlobal.h */,
 				55E2EBF515D7111900C358F7 /* ItemGlobal.m */,
-				55E2EBF115D7111900C358F7 /* Cliente.h */,
-				55E2EBF215D7111900C358F7 /* Cliente.m */,
-				55E2EBEE15D7111900C358F7 /* ItemDaMesa.h */,
-				55E2EBEF15D7111900C358F7 /* ItemDaMesa.m */,
 			);
 			name = Modelos;
 			sourceTree = "<group>";
@@ -413,12 +413,12 @@
 				559BEBAC15D2E50400EAB89B /* ConsumirItemViewController.m in Sources */,
 				55EE853315D6C2450025C295 /* TextFieldsDelegate.m in Sources */,
 				55EE853715D6C4950025C295 /* ConversorDeDinheiro.m in Sources */,
-				55E2EBF015D7111900C358F7 /* ItemDaMesa.m in Sources */,
-				55E2EBF315D7111900C358F7 /* Cliente.m in Sources */,
 				55E2EBF615D7111900C358F7 /* ItemGlobal.m in Sources */,
 				55E2EBF915D7111900C358F7 /* Mesa.m in Sources */,
 				5688A97215D9FD6F0024D79C /* DetalhesClienteViewController.m in Sources */,
 				55DBC86B15DA66EB0046BF9D /* DetalhesDoItemViewController.m in Sources */,
+				55DBC86E15DA71F70046BF9D /* Cliente.m in Sources */,
+				55DBC87115DA71F70046BF9D /* ItemDaMesa.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

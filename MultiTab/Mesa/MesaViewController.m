@@ -155,12 +155,8 @@
 - (NSString *)calcularConsumoDoCliente:(Cliente *)cliente {
     
     float valorTotal = 0;
-    
-    for (ItemDaMesa * item in cliente.itensIndividuais) {
-        valorTotal += [item.preco floatValue];
-    }
-    
-    for (ItemDaMesa * item in cliente.itensCompartilhados) {
+
+    for (ItemDaMesa * item in cliente.itens) {
         
         int consumidores = [item.quantosConsumiram integerValue];
         float precoInteiro = [item.preco floatValue];
@@ -405,7 +401,14 @@
                 
                 cliente = (Cliente*)[self.listaDeClientes objectAtIndex:indexPath.row];
                 
-                [self.mesa removeClientesDaMesaObject:cliente];
+                for (ItemDaMesa * item in cliente.itens) {
+                    int qnts = [item.quantosConsumiram integerValue];
+                    qnts--;
+                    [item setQuantosConsumiram:[NSNumber numberWithInt:qnts]];
+                    
+                }
+                
+                [self.context deleteObject:cliente];
                 [self.delegate saveContext];
                 [self atualizaDataSource];
                 

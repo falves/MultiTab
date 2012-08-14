@@ -2,7 +2,7 @@
 //  ItemDaMesa.m
 //  MultiTab
 //
-//  Created by Felipe Alves on 11/08/12.
+//  Created by Felipe on 14/08/12.
 //  Copyright (c) 2012 Bolzani. All rights reserved.
 //
 
@@ -17,8 +17,7 @@
 @dynamic nome;
 @dynamic preco;
 @dynamic quantosConsumiram;
-@dynamic clienteCompartilhado;
-@dynamic clienteIndividual;
+@dynamic conssumidores;
 @dynamic pertenceMesa;
 
 @end

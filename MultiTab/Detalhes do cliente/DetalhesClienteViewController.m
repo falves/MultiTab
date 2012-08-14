@@ -70,8 +70,7 @@
 #pragma mark - Métodos auxiliares
 
 - (void)atualizaDataSource {
-    self.listaDeItens = [NSArray arrayWithArray:[self.cliente.itensCompartilhados allObjects]];
-    self.listaDeItens = [self.listaDeItens arrayByAddingObjectsFromArray:[self.cliente.itensIndividuais allObjects]];
+    self.listaDeItens = [NSArray arrayWithArray:[self.cliente.itens allObjects]];
     [self atualizaValorTotalIndividual];
 }
 
@@ -168,8 +167,7 @@
         if ([item.quantosConsumiram integerValue] == 0) {
             [self.context deleteObject:item];
         } else {
-            [self.cliente removeItensCompartilhadosObject:item];
-            [self.cliente removeItensIndividuaisObject:item];
+            [self.cliente removeItensObject:item];
         }
 
         [self.delegate saveContext];

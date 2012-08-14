@@ -72,14 +72,8 @@
 
 - (void)atualizaDataSource {
     
-    self.listaDeClientes = [NSArray arrayWithArray:[self.item.clienteCompartilhado allObjects]];
-    
-    if ([self.item.clienteIndividual isKindOfClass:[Cliente class]]) {
-        self.listaDeClientes = [self.listaDeClientes arrayByAddingObject:self.item.clienteIndividual];
-    }
-    
-    
-//    NSLog(@"Individual - %@",self.item.clienteIndividual);
+    self.listaDeClientes = [NSArray arrayWithArray:[self.item.conssumidores allObjects]];
+
 }
 
 - (NSString *)calcularPrecoIndividual {
@@ -148,16 +142,16 @@
         
         quantosConsumiram--;
         
+//        if (quantosConsumiram == 0) {
+//            [self.context deleteObject:self.item];
+//            [self.delegate saveContext];
+//            [self dismissModalViewControllerAnimated:YES];
+//        }
+        
         [self.item setQuantosConsumiram:[NSNumber numberWithInt:quantosConsumiram]];
         
-        if ([self.item.quantosConsumiram integerValue] == 0) {
-            [self.context deleteObject:self.item];
-            [self dismissModalViewControllerAnimated:YES];
-        } else {
-            [cliente removeItensCompartilhadosObject:self.item];
-            [cliente removeItensIndividuaisObject:self.item];
-        }
-        
+        [cliente removeItensObject:self.item];
+
         [self.delegate saveContext];
         [self atualizaDataSource];
 
@@ -165,6 +159,7 @@
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:YES];
         
     }
+    [tableView endUpdates];
     
     [tableClientes reloadData];
 }
