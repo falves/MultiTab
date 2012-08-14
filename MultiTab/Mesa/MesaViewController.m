@@ -13,6 +13,7 @@
 #import "ItemViewController.h"
 #import "ConversorDeDinheiro.h"
 #import "DetalhesClienteViewController.h"
+#import "DetalhesDoItemViewController.h"
 
 @interface MesaViewController ()
 {
@@ -97,6 +98,12 @@
         NSIndexPath * indexPath = (NSIndexPath*)sender;
         DetalhesClienteViewController * detalhesVC = [segue destinationViewController];
         [detalhesVC setCliente:[self.listaDeClientes objectAtIndex:indexPath.row]];
+    }
+    
+    if ([[segue identifier] isEqualToString:@"segueDetalhesDoItem"]) {
+        NSIndexPath * indexPath = (NSIndexPath*)sender;
+        DetalhesDoItemViewController * detalhesVC = [segue destinationViewController];
+        [detalhesVC setItem:[self.listaDeItens objectAtIndex:indexPath.row]];
     }
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -309,7 +316,7 @@
             break;
             
         case 1:
-            
+            [self performSegueWithIdentifier:@"segueDetalhesDoItem" sender:indexPath];
             break;
     }
     

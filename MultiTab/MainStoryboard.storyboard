@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="jYX-Wf-Hbw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="jYX-Wf-Hbw">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
         <development version="4400" identifier="xcode"/>
@@ -402,6 +402,77 @@
             </objects>
             <point key="canvasLocation" x="-718" y="317"/>
         </scene>
+        <!--Detalhes Do Item View Controller-->
+        <scene sceneID="k7j-nJ-dqt">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gPd-Hz-BSe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="4gC-Av-OeO" customClass="DetalhesDoItemViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="a4F-10-Wmq">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="LDp-RP-Di0">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellDetalhesDoItem" textLabel="hz5-6k-gOW" detailTextLabel="Ozj-uD-JDt" style="IBUITableViewCellStyleValue1" id="Ifa-5B-mIP">
+                                        <rect key="frame" x="0.0" y="46" width="320" height="46"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Nome do cliente" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hz5-6k-gOW">
+                                                    <rect key="frame" x="10" y="11" width="132" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="R$ 0,00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ozj-uD-JDt">
+                                                    <rect key="frame" x="230" y="11" width="60" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.2196078431372549" green="0.32941176470588235" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="4gC-Av-OeO" id="U2p-7h-PLx"/>
+                                    <outlet property="delegate" destination="4gC-Av-OeO" id="YsC-3H-81b"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Preço do item:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="tGa-hh-rYf">
+                                <rect key="frame" x="90" y="375" width="112" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="R$ 0,00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="aFN-cc-OT2">
+                                <rect key="frame" x="210" y="375" width="99" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="GJW-qm-9VW"/>
+                    <connections>
+                        <outlet property="lblPrecoDoItem" destination="aFN-cc-OT2" id="5mv-oW-Plz"/>
+                        <outlet property="tableClientes" destination="LDp-RP-Di0" id="ICx-96-QWc"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-803" y="907"/>
+        </scene>
         <!--Detalhes Cliente View Controller-->
         <scene sceneID="8Aw-jR-kD8">
             <objects>
@@ -473,7 +544,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="R$ 0,00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="flS-T5-Pkp">
-                                <rect key="frame" x="199" y="375" width="101" height="21"/>
+                                <rect key="frame" x="199" y="376" width="101" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -485,10 +556,11 @@
                     <navigationItem key="navigationItem" id="zQZ-HF-Jgl"/>
                     <connections>
                         <outlet property="lblValorIndividual" destination="flS-T5-Pkp" id="nbR-FK-yIt"/>
+                        <outlet property="tableItens" destination="xK9-2O-HLY" id="12d-ch-kme"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-348" y="882"/>
+            <point key="canvasLocation" x="-342" y="907"/>
         </scene>
         <!--Mesa View Controller-->
         <scene sceneID="JYo-6T-2Zq">
@@ -529,7 +601,7 @@
                                     <segue destination="nG5-7s-wYK" kind="modal" identifier="segueAdicionaItem" id="9Jc-FU-uxI"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Total + 10%:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="zuQ-rY-wq9">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Total:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="zuQ-rY-wq9">
                                 <rect key="frame" x="89" y="375" width="99" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -672,6 +744,7 @@
                         <outlet property="lblValorDaMesa" destination="fP2-Hm-SeR" id="uCv-8I-8lx"/>
                         <outlet property="tableClientes" destination="Yeq-wm-RsY" id="Ol9-b9-uWo"/>
                         <segue destination="N5b-XY-LPJ" kind="push" identifier="segueDetalhesPessoa" id="4uf-vo-ePv"/>
+                        <segue destination="4gC-Av-OeO" kind="push" identifier="segueDetalhesDoItem" id="dE7-yt-eum"/>
                     </connections>
                 </viewController>
             </objects>
@@ -696,6 +769,14 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DetalhesClienteViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="lblValorIndividual" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tableItens" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="DetalhesDoItemViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetalhesDoItemViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="lblPrecoDoItem" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tableClientes" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="HomeViewController" superclassName="UIViewController">

@@ -11,6 +11,7 @@
 		559BEBAC15D2E50400EAB89B /* ConsumirItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559BEBAB15D2E50400EAB89B /* ConsumirItemViewController.m */; };
 		559BEBC115D3118600EAB89B /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 559BEBBF15D3118600EAB89B /* libTestFlight.a */; };
 		559BEBC415D311E700EAB89B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 559BEBC315D311E700EAB89B /* libz.dylib */; };
+		55DBC86B15DA66EB0046BF9D /* DetalhesDoItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DBC86A15DA66EB0046BF9D /* DetalhesDoItemViewController.m */; };
 		55E2EBF015D7111900C358F7 /* ItemDaMesa.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E2EBEF15D7111900C358F7 /* ItemDaMesa.m */; };
 		55E2EBF315D7111900C358F7 /* Cliente.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E2EBF215D7111900C358F7 /* Cliente.m */; };
 		55E2EBF615D7111900C358F7 /* ItemGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E2EBF515D7111900C358F7 /* ItemGlobal.m */; };
@@ -57,6 +58,8 @@
 		559BEBBF15D3118600EAB89B /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		559BEBC015D3118600EAB89B /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		559BEBC315D311E700EAB89B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		55DBC86915DA66EB0046BF9D /* DetalhesDoItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetalhesDoItemViewController.h; path = "Detalhes do item/DetalhesDoItemViewController.h"; sourceTree = "<group>"; };
+		55DBC86A15DA66EB0046BF9D /* DetalhesDoItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetalhesDoItemViewController.m; path = "Detalhes do item/DetalhesDoItemViewController.m"; sourceTree = "<group>"; };
 		55E2EBEE15D7111900C358F7 /* ItemDaMesa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemDaMesa.h; path = Modelos/ItemDaMesa.h; sourceTree = "<group>"; };
 		55E2EBEF15D7111900C358F7 /* ItemDaMesa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemDaMesa.m; path = Modelos/ItemDaMesa.m; sourceTree = "<group>"; };
 		55E2EBF115D7111900C358F7 /* Cliente.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cliente.h; path = Modelos/Cliente.h; sourceTree = "<group>"; };
@@ -148,6 +151,15 @@
 			path = "TestFlight 1.0";
 			sourceTree = "<group>";
 		};
+		55DBC86715DA66B90046BF9D /* Detalhes do item */ = {
+			isa = PBXGroup;
+			children = (
+				55DBC86915DA66EB0046BF9D /* DetalhesDoItemViewController.h */,
+				55DBC86A15DA66EB0046BF9D /* DetalhesDoItemViewController.m */,
+			);
+			name = "Detalhes do item";
+			sourceTree = "<group>";
+		};
 		55EE853015D6C2450025C295 /* Bibliotecas */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +217,7 @@
 		56AACA5F15D125CE00AA255C /* MultiTab */ = {
 			isa = PBXGroup;
 			children = (
+				55DBC86715DA66B90046BF9D /* Detalhes do item */,
 				5688A96E15D9FD410024D79C /* Detalhes do cliente */,
 				55EE853015D6C2450025C295 /* Bibliotecas */,
 				559BEBBE15D3118600EAB89B /* TestFlight 1.0 */,
@@ -405,6 +418,7 @@
 				55E2EBF615D7111900C358F7 /* ItemGlobal.m in Sources */,
 				55E2EBF915D7111900C358F7 /* Mesa.m in Sources */,
 				5688A97215D9FD6F0024D79C /* DetalhesClienteViewController.m in Sources */,
+				55DBC86B15DA66EB0046BF9D /* DetalhesDoItemViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
