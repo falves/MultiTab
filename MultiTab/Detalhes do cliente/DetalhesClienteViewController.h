@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Mesa.h"
+#import "Cliente.h"
+#import "ItemDaMesa.h"
 
-@interface DetalhesClienteViewController : UIViewController
+@interface DetalhesClienteViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic) Cliente * cliente;
 
 @end

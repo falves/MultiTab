@@ -12,6 +12,7 @@
 #import "ItemDaMesa.h"
 #import "ItemViewController.h"
 #import "ConversorDeDinheiro.h"
+#import "DetalhesClienteViewController.h"
 
 @interface MesaViewController ()
 {
@@ -92,6 +93,11 @@
         [itemVC setMesa:self.mesa];
     }
     
+    if ([[segue identifier] isEqualToString:@"segueDetalhesPessoa"]) {
+        NSIndexPath * indexPath = (NSIndexPath*)sender;
+        DetalhesClienteViewController * detalhesVC = [segue destinationViewController];
+        [detalhesVC setCliente:[self.listaDeClientes objectAtIndex:indexPath.row]];
+    }
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -295,6 +301,18 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    switch (indexPath.section) {
+            
+        case 0:
+            [self performSegueWithIdentifier:@"segueDetalhesPessoa" sender:indexPath];
+            break;
+            
+        case 1:
+            
+            break;
+    }
+    
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
