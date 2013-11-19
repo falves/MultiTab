@@ -74,6 +74,8 @@
     }
     
     self.title = self.mesa.nome;
+    
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(pressionouAlterarNomeDaMesa:)]];
 
 }
 
@@ -143,9 +145,11 @@
     [dialog addButtonWithTitle:@"Cancel"];
     [dialog addButtonWithTitle:@"OK"];
     [dialog setTag:1];
+    [dialog setAlertViewStyle:UIAlertViewStylePlainTextInput];
     
-    txtNomeDaMesa = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 45.0, 245.0, 25.0)];
-    [txtNomeDaMesa setBackgroundColor:[UIColor whiteColor]];
+//    txtNomeDaMesa = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 45.0, 245.0, 25.0)];
+    txtNomeDaMesa = [dialog textFieldAtIndex:0];
+//    [txtNomeDaMesa setBackgroundColor:[UIColor whiteColor]];
     [txtNomeDaMesa setText:lblNomeDaMesa.text];
     [dialog addSubview:txtNomeDaMesa];
     [dialog show];
@@ -592,9 +596,11 @@
             [dialog addButtonWithTitle:@"Cancel"];
             [dialog addButtonWithTitle:@"OK"];
             [dialog setTag:0];
+            [dialog setAlertViewStyle:UIAlertViewStylePlainTextInput];
             
-            nameField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 45.0, 245.0, 25.0)];
-            [nameField setBackgroundColor:[UIColor whiteColor]];
+//            nameField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 45.0, 245.0, 25.0)];
+            nameField = [dialog textFieldAtIndex:0];
+//            [nameField setBackgroundColor:[UIColor whiteColor]];
             [dialog addSubview:nameField];
             [dialog show];
             

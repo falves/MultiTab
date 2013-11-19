@@ -95,6 +95,7 @@
 - (IBAction)pressionouAlterar:(UIButton*)sender {
     
     UIAlertView * dialog = [[UIAlertView alloc] init];
+    [dialog setAlertViewStyle:UIAlertViewStylePlainTextInput];
     [dialog setDelegate:self];
     [dialog setTitle:@"Digite o novo preço"];
     [dialog setMessage:@" "];
@@ -102,8 +103,9 @@
     [dialog addButtonWithTitle:@"OK"];
     [dialog setTag:1];
     
-    txtPreco = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 45.0, 245.0, 25.0)];
-    txtPreco.backgroundColor          = [UIColor whiteColor];
+//    txtPreco = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 45.0, 245.0, 25.0)];
+    txtPreco                          = [dialog textFieldAtIndex:0];
+//    txtPreco.backgroundColor          = [UIColor whiteColor];
     txtPreco.autocorrectionType       = UITextAutocorrectionTypeNo;
     txtPreco.delegate                 = self.textFieldsDelegate;
     txtPreco.keyboardType             = UIKeyboardTypeNumberPad;
